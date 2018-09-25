@@ -20,9 +20,11 @@ fn main() {
             return;
         }
     };
+
+    println!("{:?}", config);
 }
 
-#[derive(Deserialize)]
+#[derive(Deserialize, Debug)]
 pub struct Config {
     memos_dir: Option<String>,
     editor: Option<String>,
