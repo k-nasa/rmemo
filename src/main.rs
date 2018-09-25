@@ -41,9 +41,27 @@ impl Config {
 
         let filepath = &dir.join("config.toml");
 
-        // will create it every time, but it may be easy
-        let file = File::create(filepath);
+        let mut file = match File::open(filepath) {
+            Ok(file) => file,
+            Err(_) => File::create(filepath)?,
+        };
 
-        Ok(Config)
+        let mut buf = vec![];
+        file.read_to_end(&mut buf)?;
+        let toml_str = match from_utf8(&buf) {
+            Ok(toml_str) => toml_str,
+            Err(e) => panic!(e),
+        };
+
+        if toml_str.len() == 0 {
+            //TODO write default config to config.toml
+        }
+
+        let config: Config = match toml::from_str(toml_str) {
+            Ok(config) => config,
+            Err(e) => panic!(e),
+        };
+
+        Ok(config)
     }
 }
