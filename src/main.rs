@@ -72,8 +72,6 @@ impl Config {
 
         let filepath = &dir.join("config.toml");
 
-        let filepath = "./test.toml";
-
         match OpenOptions::new()
             .create(true)
             .write(true)
