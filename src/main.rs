@@ -28,14 +28,14 @@ fn run(mut app: clap::App) {
     };
 
     match app.clone().get_matches().subcommand() {
-        ("config", Some(_)) => 1,
-        ("delete", Some(_)) => 1,
-        ("edit", Some(_)) => 1,
-        ("list", Some(_)) => 1,
-        ("new", Some(_)) => 1,
+        ("config", Some(_)) => cmd_config(),
+        ("delete", Some(_)) => cmd_delete(),
+        ("edit", Some(_)) => cmd_edit(),
+        ("list", Some(_)) => cmd_list(),
+        ("new", Some(_)) => cmd_new(),
         _ => {
             app.print_long_help().ok();
-            1
+            return;
         }
     };
 }
@@ -144,3 +144,9 @@ fn build_app() -> clap::App<'static, 'static> {
                 .about("create new memo"),
         )
 }
+
+fn cmd_config() {}
+fn cmd_delete() {}
+fn cmd_edit() {}
+fn cmd_list() {}
+fn cmd_new() {}
