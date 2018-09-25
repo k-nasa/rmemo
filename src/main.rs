@@ -35,18 +35,7 @@ pub struct Config {
 /// If not, create it
 impl Config {
     fn load_config() -> Result<Config> {
-        //FIXME Not compatible with windows
-        let dir = match dirs::home_dir() {
-            Some(dir) => Path::new(&dir.to_str().unwrap().to_string()).join(".config/memo/"),
-            _ => Path::new("./").join(".config/memo/"),
-        };
-
-        let filepath = &dir.join("config.toml");
-
-        let mut file = match File::open(filepath) {
-            Ok(file) => file,
-            Err(_) => File::create(filepath)?,
-        };
+        let mut file = Config::load_or_create_file();
 
         let mut buf = vec![];
         file.read_to_end(&mut buf)?;
@@ -65,5 +54,22 @@ impl Config {
         };
 
         Ok(config)
+    }
+
+    ///Get the file pointer of the setting file.
+    ///When there is no file, a setting file is created.
+    fn load_or_create_file() -> File {
+        //FIXME Not compatible with windows
+        let dir = match dirs::home_dir() {
+            Some(dir) => Path::new(&dir.to_str().unwrap().to_string()).join(".config/memo/"),
+            _ => Path::new("./").join(".config/memo/"),
+        };
+
+        let filepath = &dir.join("config.toml");
+
+        match File::open(filepath) {
+            Ok(file) => file,
+            Err(_) => File::create(filepath).unwrap(),
+        }
     }
 }
