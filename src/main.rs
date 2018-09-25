@@ -73,9 +73,17 @@ impl Config {
 
         let filepath = &dir.join("config.toml");
 
-        match File::open(filepath) {
+        let filepath = "./test.toml";
+
+        match OpenOptions::new()
+            .create(true)
+            .write(true)
+            .append(true)
+            .read(true)
+            .open(filepath)
+        {
             Ok(file) => file,
-            Err(_) => File::create(filepath).unwrap(),
+            Err(e) => panic!(e),
         }
     }
 }
