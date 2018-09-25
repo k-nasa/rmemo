@@ -73,3 +73,17 @@ impl Config {
         }
     }
 }
+
+impl Default for Config {
+    fn default() -> Self {
+        let memos_dir = Some(String::from("./memos/"));
+        let editor = Some(String::from("vim"));
+        let template_file_path = Some(String::from("./"));
+
+        Config {
+            memos_dir,
+            editor,
+            template_file_path,
+        }
+    }
+}
