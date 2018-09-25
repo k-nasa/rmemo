@@ -15,33 +15,10 @@ extern crate serde_derive;
 extern crate clap;
 
 fn main() {
-    let mut app = App::new(crate_name!())
-        .version(crate_version!())
-        .author(crate_authors!())
-        .about(crate_description!())
-        .subcommand(SubCommand::with_name("help").alias("h").about("help"))
-        .subcommand(
-            SubCommand::with_name("config")
-                .alias("c")
-                .about("edit config file"),
-        )
-        .subcommand(
-            SubCommand::with_name("list")
-                .alias("l")
-                .about("show memos list"),
-        )
-        .subcommand(SubCommand::with_name("edit").alias("e").about("edit memo"))
-        .subcommand(
-            SubCommand::with_name("delete")
-                .alias("d")
-                .about("delete memos"),
-        )
-        .subcommand(
-            SubCommand::with_name("new")
-                .alias("n")
-                .about("create new memo"),
-        );
+    run(build_app());
+}
 
+fn run(mut app: clap::App) {
     let config = match Config::load_config() {
         Ok(config) => config,
         Err(e) => {
@@ -137,4 +114,33 @@ impl Default for Config {
             template_file_path,
         }
     }
+}
+
+fn build_app() -> clap::App<'static, 'static> {
+    App::new(crate_name!())
+        .version(crate_version!())
+        .author(crate_authors!())
+        .about(crate_description!())
+        .subcommand(SubCommand::with_name("help").alias("h").about("help"))
+        .subcommand(
+            SubCommand::with_name("config")
+                .alias("c")
+                .about("edit config file"),
+        )
+        .subcommand(
+            SubCommand::with_name("list")
+                .alias("l")
+                .about("show memos list"),
+        )
+        .subcommand(SubCommand::with_name("edit").alias("e").about("edit memo"))
+        .subcommand(
+            SubCommand::with_name("delete")
+                .alias("d")
+                .about("delete memos"),
+        )
+        .subcommand(
+            SubCommand::with_name("new")
+                .alias("n")
+                .about("create new memo"),
+        )
 }
