@@ -1,3 +1,4 @@
+use clap::{App, Arg, SubCommand};
 use std::fs::*;
 use std::io::prelude::*;
 use std::io::Result;
@@ -6,14 +7,12 @@ use std::str::from_utf8;
 
 extern crate dirs;
 extern crate serde;
-
-#[macro_use]
-extern crate serde_derive;
 extern crate toml;
 
 #[macro_use]
+extern crate serde_derive;
+#[macro_use]
 extern crate clap;
-use clap::{App, Arg, SubCommand};
 
 fn main() {
     let app = App::new(crate_name!())
