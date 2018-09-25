@@ -1,4 +1,4 @@
-use clap::{App, Arg, SubCommand};
+use clap::{App, SubCommand};
 use std::fs::*;
 use std::io::prelude::*;
 use std::io::Result;
@@ -15,7 +15,7 @@ extern crate serde_derive;
 extern crate clap;
 
 fn main() {
-    let app = App::new(crate_name!())
+    let mut app = App::new(crate_name!())
         .version(crate_version!())
         .author(crate_authors!())
         .about(crate_description!())
@@ -42,8 +42,6 @@ fn main() {
                 .about("create new memo"),
         );
 
-    let matches = app.get_matches();
-
     let config = match Config::load_config() {
         Ok(config) => config,
         Err(e) => {
@@ -52,7 +50,17 @@ fn main() {
         }
     };
 
-    println!("{:?}", config);
+    match app.clone().get_matches().subcommand() {
+        ("config", Some(_)) => 1,
+        ("delete", Some(_)) => 1,
+        ("edit", Some(_)) => 1,
+        ("list", Some(_)) => 1,
+        ("new", Some(_)) => 1,
+        _ => {
+            app.print_long_help().ok();
+            1
+        }
+    };
 }
 
 #[derive(Deserialize, Serialize, Debug)]
