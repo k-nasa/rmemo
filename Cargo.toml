@@ -2,9 +2,11 @@
 name = "memo"
 version = "0.1.0"
 authors = ["k-nasa <htilcs1115@gmail.com>"]
+description = "CLI memo command"
 
 [dependencies]
 dirs = "1.0.4"
 toml = "0.4.6"
 serde = "*"
 serde_derive = "*"
+clap = "*"

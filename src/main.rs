@@ -1,3 +1,4 @@
+use clap::{App, SubCommand};
 use std::fs::*;
 use std::io::prelude::*;
 use std::io::Result;
@@ -6,12 +7,18 @@ use std::str::from_utf8;
 
 extern crate dirs;
 extern crate serde;
+extern crate toml;
 
 #[macro_use]
 extern crate serde_derive;
-extern crate toml;
+#[macro_use]
+extern crate clap;
 
 fn main() {
+    run(build_app());
+}
+
+fn run(mut app: clap::App) {
     let config = match Config::load_config() {
         Ok(config) => config,
         Err(e) => {
@@ -20,7 +27,17 @@ fn main() {
         }
     };
 
-    println!("{:?}", config);
+    match app.clone().get_matches().subcommand() {
+        ("config", Some(_)) => cmd_config(),
+        ("delete", Some(_)) => cmd_delete(),
+        ("edit", Some(_)) => cmd_edit(),
+        ("list", Some(_)) => cmd_list(),
+        ("new", Some(_)) => cmd_new(),
+        _ => {
+            app.print_long_help().ok();
+            return;
+        }
+    };
 }
 
 #[derive(Deserialize, Serialize, Debug)]
@@ -98,3 +115,38 @@ impl Default for Config {
         }
     }
 }
+
+fn build_app() -> clap::App<'static, 'static> {
+    App::new(crate_name!())
+        .version(crate_version!())
+        .author(crate_authors!())
+        .about(crate_description!())
+        .subcommand(SubCommand::with_name("help").alias("h").about("help"))
+        .subcommand(
+            SubCommand::with_name("config")
+                .alias("c")
+                .about("edit config file"),
+        )
+        .subcommand(
+            SubCommand::with_name("list")
+                .alias("l")
+                .about("show memos list"),
+        )
+        .subcommand(SubCommand::with_name("edit").alias("e").about("edit memo"))
+        .subcommand(
+            SubCommand::with_name("delete")
+                .alias("d")
+                .about("delete memos"),
+        )
+        .subcommand(
+            SubCommand::with_name("new")
+                .alias("n")
+                .about("create new memo"),
+        )
+}
+
+fn cmd_config() {}
+fn cmd_delete() {}
+fn cmd_edit() {}
+fn cmd_list() {}
+fn cmd_new() {}
