@@ -1,6 +1,5 @@
 use std::fs::*;
 use std::io::prelude::*;
-use std::io::stderr;
 use std::io::Result;
 use std::path::*;
 use std::str::from_utf8;
