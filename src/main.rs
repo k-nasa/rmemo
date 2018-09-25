@@ -22,7 +22,12 @@ fn main() {
     };
 }
 
-pub struct Config;
+#[derive(Deserialize)]
+pub struct Config {
+    memos_dir: Option<String>,
+    editor: Option<String>,
+    template_file_path: Option<String>,
+}
 
 /// Read the file in which the setting file is described.
 /// If not, create it
