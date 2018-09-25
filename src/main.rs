@@ -24,7 +24,7 @@ fn main() {
     println!("{:?}", config);
 }
 
-#[derive(Deserialize, Debug)]
+#[derive(Deserialize, Serialize, Debug)]
 pub struct Config {
     memos_dir: Option<String>,
     editor: Option<String>,
@@ -44,13 +44,19 @@ impl Config {
             Err(e) => panic!(e),
         };
 
-        if toml_str.len() == 0 {
-            //TODO write default config to config.toml
-        }
+        let config: Config = if toml_str.len() == 0 {
+            let config = Config::default();
+            let toml_str = toml::to_string(&config).unwrap();
 
-        let config: Config = match toml::from_str(toml_str) {
-            Ok(config) => config,
-            Err(e) => panic!(e),
+            match file.write_all(toml_str.as_bytes()) {
+                Ok(_) => config,
+                Err(e) => panic!(e),
+            }
+        } else {
+            match toml::from_str(toml_str) {
+                Ok(config) => config,
+                Err(e) => panic!(e),
+            }
         };
 
         Ok(config)
