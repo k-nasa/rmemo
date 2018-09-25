@@ -1,8 +1,16 @@
 use std::fs::*;
+use std::io::prelude::*;
+use std::io::stderr;
 use std::io::Result;
 use std::path::*;
+use std::str::from_utf8;
 
 extern crate dirs;
+extern crate serde;
+
+#[macro_use]
+extern crate serde_derive;
+extern crate toml;
 
 fn main() {
     let config = match Config::load_config() {
