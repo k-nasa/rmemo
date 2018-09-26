@@ -45,6 +45,7 @@ pub struct Config {
     memos_dir: Option<String>,
     editor: Option<String>,
     template_file_path: Option<String>,
+    enter_time_in_filename: Option<bool>,
 }
 
 /// Read the file in which the setting file is described.
@@ -71,7 +72,7 @@ impl Config {
         } else {
             match toml::from_str(toml_str) {
                 Ok(config) => config,
-                Err(e) => panic!(e),
+                Err(_) => panic!("Analysis of configuration file failed"),
             }
         };
 
@@ -86,6 +87,11 @@ impl Config {
             Some(dir) => Path::new(&dir.to_str().unwrap().to_string()).join(".config/memo/"),
             _ => Path::new("./").join(".config/memo/"),
         };
+
+        DirBuilder::new()
+            .recursive(true)
+            .create(dir.clone())
+            .unwrap();
 
         let filepath = &dir.join("config.toml");
 
@@ -104,14 +110,16 @@ impl Config {
 
 impl Default for Config {
     fn default() -> Self {
-        let memos_dir = Some(String::from("./memos/"));
+        let memos_dir = Some(String::from("~/.config/memo/memos"));
         let editor = Some(String::from("vim"));
-        let template_file_path = Some(String::from("./"));
+        let template_file_path = Some(String::from("./")); //FIXME
+        let enter_time_in_filename = Some(true);
 
         Config {
             memos_dir,
             editor,
             template_file_path,
+            enter_time_in_filename,
         }
     }
 }
