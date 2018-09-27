@@ -70,7 +70,7 @@ impl Config {
             Err(e) => panic!(e),
         };
 
-        let config: Config = if toml_str.len() == 0 {
+        let config: Config = if toml_str.is_empty() {
             let config = Config::default();
             let toml_str = toml::to_string(&config).unwrap();
 
@@ -215,11 +215,11 @@ fn cmd_edit(matches: &ArgMatches, config: Config) {
     let dir = config.memos_dir();
     create_dir_all(dir).expect("faild create memos_dir");
 
-    if title.len() == 0 {
+    if title.is_empty() {
         title = run_selector(&"fzf".to_string(), dir);
     }
 
-    if title.len() == 0 {
+    if title.is_empty() {
         println!("File is not selected!");
         return;
     }
