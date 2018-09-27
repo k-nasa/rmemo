@@ -256,10 +256,27 @@ fn cmd_new(matches: &ArgMatches, config: Config) {
 
     create_dir_all(dir).expect("faild create memos_dir");
 
+    run_editor(editor, &filepath);
+}
+
+fn run_editor(editor: &String, filepath: &String) {
     let mut editor_process = Command::new(editor)
         .arg(filepath)
         .spawn()
         .expect("failed open editor");
 
     editor_process.wait().expect("failed to run");
+}
+
+fn run_selector(selector: &String, dir: &String) -> String {
+    let selector_process = Command::new(selector)
+        .current_dir(dir)
+        .stdout(Stdio::piped())
+        .spawn()
+        .expect("failed run selector command");
+
+    let output = selector_process.wait_with_output().unwrap();
+    let filename = from_utf8(&output.stdout).unwrap().to_string();
+
+    filename.chars().filter(|c| c != &'\n').collect::<String>()
 }
