@@ -131,7 +131,7 @@ impl Config {
 
 impl Default for Config {
     fn default() -> Self {
-        let memos_dir = Some(String::from("~/.config/memo/memos"));
+        let memos_dir = Some(String::from(home_dir_string() + "/.config/memo/memos"));
         let editor = Some(String::from("vim"));
         let template_file_path = Some(String::from("./")); //FIXME
         let enter_time_in_filename = Some(true);
@@ -172,6 +172,19 @@ fn build_app() -> clap::App<'static, 'static> {
                 .alias("n")
                 .about("create new memo"),
         )
+}
+
+fn read<T: std::str::FromStr>() -> T {
+    let mut s = String::new();
+    std::io::stdin().read_line(&mut s).ok();
+    s.trim().parse().ok().unwrap()
+}
+
+fn home_dir_string() -> String {
+    match dirs::home_dir() {
+        Some(dir) => dir.to_str().unwrap().to_string(),
+        _ => panic!("Home directory is not set"),
+    }
 }
 
 fn cmd_config() {}
