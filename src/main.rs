@@ -1,10 +1,13 @@
-use clap::{App, SubCommand};
+use chrono::prelude::*;
+use clap::{App, AppSettings, Arg, ArgMatches, SubCommand};
 use std::fs::*;
 use std::io::prelude::*;
 use std::io::Result;
 use std::path::*;
+use std::process::Command;
 use std::str::from_utf8;
 
+extern crate chrono;
 extern crate dirs;
 extern crate serde;
 extern crate toml;
@@ -32,7 +35,7 @@ fn run(mut app: clap::App) {
         ("delete", Some(_)) => cmd_delete(),
         ("edit", Some(_)) => cmd_edit(),
         ("list", Some(_)) => cmd_list(),
-        ("new", Some(_)) => cmd_new(),
+        ("new", Some(matches)) => cmd_new(matches, config),
         _ => {
             app.print_long_help().ok();
             return;
@@ -45,6 +48,7 @@ pub struct Config {
     memos_dir: Option<String>,
     editor: Option<String>,
     template_file_path: Option<String>,
+    enter_time_in_filename: Option<bool>,
 }
 
 /// Read the file in which the setting file is described.
@@ -71,7 +75,7 @@ impl Config {
         } else {
             match toml::from_str(toml_str) {
                 Ok(config) => config,
-                Err(e) => panic!(e),
+                Err(_) => panic!("Analysis of configuration file failed"),
             }
         };
 
@@ -87,6 +91,11 @@ impl Config {
             _ => Path::new("./").join(".config/memo/"),
         };
 
+        DirBuilder::new()
+            .recursive(true)
+            .create(dir.clone())
+            .unwrap();
+
         let filepath = &dir.join("config.toml");
 
         match OpenOptions::new()
@@ -100,18 +109,41 @@ impl Config {
             Err(e) => panic!(e),
         }
     }
+
+    fn memos_dir(&self) -> &String {
+        match self.memos_dir {
+            Some(ref dir) => dir,
+            None => panic!("Memos directory is not set"),
+        }
+    }
+
+    fn enter_time_in_filename(&self) -> bool {
+        match self.enter_time_in_filename {
+            Some(true) => true,
+            _ => false,
+        }
+    }
+
+    fn editor(&self) -> &String {
+        match self.editor {
+            Some(ref editor) => editor,
+            None => panic!("Editor is not set"),
+        }
+    }
 }
 
 impl Default for Config {
     fn default() -> Self {
-        let memos_dir = Some(String::from("./memos/"));
+        let memos_dir = Some(String::from(home_dir_string() + "/.config/memo/memos"));
         let editor = Some(String::from("vim"));
-        let template_file_path = Some(String::from("./"));
+        let template_file_path = Some(String::from("./")); //FIXME
+        let enter_time_in_filename = Some(true);
 
         Config {
             memos_dir,
             editor,
             template_file_path,
+            enter_time_in_filename,
         }
     }
 }
@@ -121,6 +153,7 @@ fn build_app() -> clap::App<'static, 'static> {
         .version(crate_version!())
         .author(crate_authors!())
         .about(crate_description!())
+        .setting(AppSettings::DeriveDisplayOrder)
         .subcommand(SubCommand::with_name("help").alias("h").about("help"))
         .subcommand(
             SubCommand::with_name("config")
@@ -141,12 +174,57 @@ fn build_app() -> clap::App<'static, 'static> {
         .subcommand(
             SubCommand::with_name("new")
                 .alias("n")
-                .about("create new memo"),
+                .about("create new memo")
+                .arg(Arg::with_name("title").help("create file title")),
         )
+}
+
+fn read<T: std::str::FromStr>() -> T {
+    let mut s = String::new();
+    std::io::stdin().read_line(&mut s).ok();
+    s.trim().parse().ok().unwrap()
+}
+
+fn home_dir_string() -> String {
+    match dirs::home_dir() {
+        Some(dir) => dir.to_str().unwrap().to_string(),
+        _ => panic!("Home directory is not set"),
+    }
 }
 
 fn cmd_config() {}
 fn cmd_delete() {}
 fn cmd_edit() {}
 fn cmd_list() {}
-fn cmd_new() {}
+
+fn cmd_new(matches: &ArgMatches, config: Config) {
+    let title = match matches.value_of("title") {
+        Some(title) => title.to_string(),
+        None => {
+            println!("Input title :");
+            read::<String>()
+        }
+    };
+
+    let dir = config.memos_dir();
+    let editor = config.editor();
+
+    let title = match config.enter_time_in_filename {
+        Some(true) => {
+            let now = Local::now().format("%Y-%m-%d").to_string();
+            format!("{}{}.md", now, title)
+        }
+        _ => format!("{}.md", title),
+    };
+
+    let filepath = format!("{}/{}", dir, title);
+
+    create_dir_all(dir).expect("faild create memos_dir");
+
+    let mut editor_process = Command::new(editor)
+        .arg(filepath)
+        .spawn()
+        .expect("failed open editor");
+
+    editor_process.wait().expect("failed to run");
+}
