@@ -1,10 +1,13 @@
-use clap::{App, SubCommand};
+use chrono::prelude::*;
+use clap::{App, AppSettings, Arg, ArgMatches, SubCommand};
 use std::fs::*;
 use std::io::prelude::*;
 use std::io::Result;
 use std::path::*;
+use std::process::Command;
 use std::str::from_utf8;
 
+extern crate chrono;
 extern crate dirs;
 extern crate serde;
 extern crate toml;
@@ -192,4 +195,34 @@ fn cmd_delete() {}
 fn cmd_edit() {}
 fn cmd_list() {}
 
-fn cmd_new(matches: &ArgMatches, config: Config) {}
+fn cmd_new(matches: &ArgMatches, config: Config) {
+    let title = match matches.value_of("title") {
+        Some(title) => title.to_string(),
+        None => {
+            println!("Input title :");
+            read::<String>()
+        }
+    };
+
+    let dir = config.memos_dir();
+    let editor = config.editor();
+
+    let title = match config.enter_time_in_filename {
+        Some(true) => {
+            let now = Local::now().format("%Y-%m-%d").to_string();
+            format!("{}{}.md", now, title)
+        }
+        _ => format!("{}.md", title),
+    };
+
+    let filepath = format!("{}/{}", dir, title);
+
+    create_dir_all(dir).expect("faild create memos_dir");
+
+    let mut editor_process = Command::new(editor)
+        .arg(filepath)
+        .spawn()
+        .expect("failed open editor");
+
+    editor_process.wait().expect("failed to run");
+}
