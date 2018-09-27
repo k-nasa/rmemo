@@ -57,10 +57,10 @@ pub struct Config {
     enter_time_in_filename: Option<bool>,
 }
 
-/// Read the file in which the setting file is described.
-/// If not, create it
 impl Config {
-    fn load_config() -> Result<Config> {
+    /// Read the file in which the setting file is described.
+    /// If not, create it
+    pub fn load_config() -> Result<Config> {
         let mut file = Config::load_or_create_file();
 
         let mut buf = vec![];
@@ -116,21 +116,21 @@ impl Config {
         }
     }
 
-    fn memos_dir(&self) -> &String {
+    pub fn memos_dir(&self) -> &String {
         match self.memos_dir {
             Some(ref dir) => dir,
             None => panic!("Memos directory is not set"),
         }
     }
 
-    fn enter_time_in_filename(&self) -> bool {
+    pub fn enter_time_in_filename(&self) -> bool {
         match self.enter_time_in_filename {
             Some(true) => true,
             _ => false,
         }
     }
 
-    fn editor(&self) -> &String {
+    pub fn editor(&self) -> &String {
         match self.editor {
             Some(ref editor) => editor,
             None => panic!("Editor is not set"),
