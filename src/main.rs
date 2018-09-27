@@ -153,6 +153,7 @@ fn build_app() -> clap::App<'static, 'static> {
         .version(crate_version!())
         .author(crate_authors!())
         .about(crate_description!())
+        .setting(AppSettings::DeriveDisplayOrder)
         .subcommand(SubCommand::with_name("help").alias("h").about("help"))
         .subcommand(
             SubCommand::with_name("config")
@@ -173,7 +174,8 @@ fn build_app() -> clap::App<'static, 'static> {
         .subcommand(
             SubCommand::with_name("new")
                 .alias("n")
-                .about("create new memo"),
+                .about("create new memo")
+                .arg(Arg::with_name("title").help("create file title")),
         )
 }
 
