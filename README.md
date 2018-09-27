@@ -1,3 +1,5 @@
+[![Build Status](https://travis-ci.org/k-nasa/memo_command.svg?branch=master)](https://travis-ci.org/k-nasa/memo_command)
+
 # Memo Command
 CLI memo tool
 
