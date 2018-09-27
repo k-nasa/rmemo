@@ -3,7 +3,6 @@ use clap::{App, AppSettings, Arg, ArgMatches, SubCommand};
 use std::fs::*;
 use std::io::prelude::*;
 use std::io::Result;
-use std::os::unix::io::*;
 use std::path::*;
 use std::process::{Command, Stdio};
 use std::str::from_utf8;
@@ -36,11 +35,11 @@ fn run(mut app: clap::App) {
 
         ("delete", Some(_)) => cmd_delete(),
 
-        ("edit", Some(matches)) => cmd_edit(matches, config),
+        ("edit", Some(matches)) => cmd_edit(matches, &config),
 
         ("list", Some(_)) => cmd_list(),
 
-        ("new", Some(matches)) => cmd_new(matches, config),
+        ("new", Some(matches)) => cmd_new(matches, &config),
 
         _ => {
             app.print_long_help().ok();
@@ -81,7 +80,7 @@ impl Config {
         } else {
             match toml::from_str(toml_str) {
                 Ok(config) => config,
-                Err(_) => panic!("Analysis of configuration file failed"),
+                _ => panic!("Analysis of configuration file failed"),
             }
         };
 
@@ -140,7 +139,7 @@ impl Config {
 
 impl Default for Config {
     fn default() -> Self {
-        let memos_dir = Some(String::from(home_dir_string() + "/.config/memo/memos"));
+        let memos_dir = Some(home_dir_string() + "/.config/memo/memos");
         let editor = Some(String::from("vim"));
         let template_file_path = Some(String::from("./")); //FIXME
         let enter_time_in_filename = Some(true);
@@ -206,7 +205,7 @@ fn home_dir_string() -> String {
 fn cmd_config() {}
 fn cmd_delete() {}
 
-fn cmd_edit(matches: &ArgMatches, config: Config) {
+fn cmd_edit(matches: &ArgMatches, config: &Config) {
     let mut title = match matches.value_of("title") {
         Some(title) => title.to_string(),
         None => String::new(),
@@ -232,7 +231,7 @@ fn cmd_edit(matches: &ArgMatches, config: Config) {
 
 fn cmd_list() {}
 
-fn cmd_new(matches: &ArgMatches, config: Config) {
+fn cmd_new(matches: &ArgMatches, config: &Config) {
     let title = match matches.value_of("title") {
         Some(title) => title.to_string(),
         None => {
@@ -259,7 +258,7 @@ fn cmd_new(matches: &ArgMatches, config: Config) {
     run_editor(editor, &filepath);
 }
 
-fn run_editor(editor: &String, filepath: &String) {
+fn run_editor(editor: &str, filepath: &str) {
     let mut editor_process = Command::new(editor)
         .arg(filepath)
         .spawn()
@@ -268,7 +267,7 @@ fn run_editor(editor: &String, filepath: &String) {
     editor_process.wait().expect("failed to run");
 }
 
-fn run_selector(selector: &String, dir: &String) -> String {
+fn run_selector(selector: &str, dir: &str) -> String {
     let selector_process = Command::new(selector)
         .current_dir(dir)
         .stdout(Stdio::piped())
