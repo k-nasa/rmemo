@@ -106,6 +106,27 @@ impl Config {
             Err(e) => panic!(e),
         }
     }
+
+    fn memos_dir(&self) -> &String {
+        match self.memos_dir {
+            Some(ref dir) => dir,
+            None => panic!("Memos directory is not set"),
+        }
+    }
+
+    fn enter_time_in_filename(&self) -> bool {
+        match self.enter_time_in_filename {
+            Some(true) => true,
+            _ => false,
+        }
+    }
+
+    fn editor(&self) -> &String {
+        match self.editor {
+            Some(ref editor) => editor,
+            None => panic!("Editor is not set"),
+        }
+    }
 }
 
 impl Default for Config {
