@@ -32,7 +32,7 @@ fn run(mut app: clap::App) {
         ("delete", Some(_)) => cmd_delete(),
         ("edit", Some(_)) => cmd_edit(),
         ("list", Some(_)) => cmd_list(),
-        ("new", Some(_)) => cmd_new(),
+        ("new", Some(matches)) => cmd_new(matches, config),
         _ => {
             app.print_long_help().ok();
             return;
@@ -191,4 +191,5 @@ fn cmd_config() {}
 fn cmd_delete() {}
 fn cmd_edit() {}
 fn cmd_list() {}
-fn cmd_new() {}
+
+fn cmd_new(matches: &ArgMatches, config: Config) {}
