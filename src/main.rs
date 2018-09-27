@@ -3,8 +3,9 @@ use clap::{App, AppSettings, Arg, ArgMatches, SubCommand};
 use std::fs::*;
 use std::io::prelude::*;
 use std::io::Result;
+use std::os::unix::io::*;
 use std::path::*;
-use std::process::Command;
+use std::process::{Command, Stdio};
 use std::str::from_utf8;
 
 extern crate chrono;
@@ -32,10 +33,15 @@ fn run(mut app: clap::App) {
 
     match app.clone().get_matches().subcommand() {
         ("config", Some(_)) => cmd_config(),
+
         ("delete", Some(_)) => cmd_delete(),
-        ("edit", Some(_)) => cmd_edit(),
+
+        ("edit", Some(matches)) => cmd_edit(matches, config),
+
         ("list", Some(_)) => cmd_list(),
+
         ("new", Some(matches)) => cmd_new(matches, config),
+
         _ => {
             app.print_long_help().ok();
             return;
@@ -165,7 +171,12 @@ fn build_app() -> clap::App<'static, 'static> {
                 .alias("l")
                 .about("show memos list"),
         )
-        .subcommand(SubCommand::with_name("edit").alias("e").about("edit memo"))
+        .subcommand(
+            SubCommand::with_name("edit")
+                .alias("e")
+                .about("edit memo")
+                .arg(Arg::with_name("title").help("edit file title")),
+        )
         .subcommand(
             SubCommand::with_name("delete")
                 .alias("d")
@@ -194,7 +205,31 @@ fn home_dir_string() -> String {
 
 fn cmd_config() {}
 fn cmd_delete() {}
-fn cmd_edit() {}
+
+fn cmd_edit(matches: &ArgMatches, config: Config) {
+    let mut title = match matches.value_of("title") {
+        Some(title) => title.to_string(),
+        None => String::new(),
+    };
+
+    let dir = config.memos_dir();
+    create_dir_all(dir).expect("faild create memos_dir");
+
+    if title.len() == 0 {
+        title = run_selector(&"fzf".to_string(), dir);
+    }
+
+    if title.len() == 0 {
+        println!("File is not selected!");
+        return;
+    }
+
+    let editor = config.editor();
+    let filepath = format!("{}/{}", dir, title);
+
+    run_editor(editor, &filepath);
+}
+
 fn cmd_list() {}
 
 fn cmd_new(matches: &ArgMatches, config: Config) {
