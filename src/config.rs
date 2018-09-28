@@ -15,6 +15,7 @@ use utils::home_dir_string;
 pub struct Config {
     memos_dir: Option<String>,
     editor: Option<String>,
+    selector: Option<String>,
     template_file_path: Option<String>,
     pub enter_time_in_filename: Option<bool>,
 }
@@ -101,18 +102,28 @@ impl Config {
             None => panic!("Editor is not set"),
         }
     }
+
+    /// Unwrap and return the selector property
+    pub fn selector(&self) -> &String {
+        match self.selector {
+            Some(ref selector) => selector,
+            None => panic!("Editor is not set"),
+        }
+    }
 }
 
 impl Default for Config {
     fn default() -> Self {
         let memos_dir = Some(home_dir_string() + "/.config/memo/memos");
         let editor = Some(String::from("vim"));
+        let selector = Some(String::from("fzf"));
         let template_file_path = Some(String::from("./")); //FIXME
         let enter_time_in_filename = Some(true);
 
         Config {
             memos_dir,
             editor,
+            selector,
             template_file_path,
             enter_time_in_filename,
         }
