@@ -11,6 +11,7 @@ use std::str::from_utf8;
 use utils::home_dir_string;
 
 #[derive(Deserialize, Serialize, Debug)]
+/// Structure that loads setting information from file and mapping
 pub struct Config {
     memos_dir: Option<String>,
     editor: Option<String>,
@@ -77,6 +78,7 @@ impl Config {
         }
     }
 
+    /// Unwrap and return the memo_dir property
     pub fn memos_dir(&self) -> &String {
         match self.memos_dir {
             Some(ref dir) => dir,
@@ -84,6 +86,7 @@ impl Config {
         }
     }
 
+    /// Unwrap and return the enter_time_in_filename property
     pub fn enter_time_in_filename(&self) -> bool {
         match self.enter_time_in_filename {
             Some(true) => true,
@@ -91,6 +94,7 @@ impl Config {
         }
     }
 
+    /// Unwrap and return the editor property
     pub fn editor(&self) -> &String {
         match self.editor {
             Some(ref editor) => editor,
