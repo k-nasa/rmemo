@@ -76,8 +76,9 @@ pub fn cmd_edit(matches: &ArgMatches, config: &Config) {
     let dir = config.memos_dir();
     create_dir_all(dir).expect("faild create memos_dir");
 
+    let selector = config.selector();
     if title.is_empty() {
-        title = run_selector(&"fzf".to_string(), dir);
+        title = run_selector(&selector, dir);
     }
 
     if title.is_empty() {
