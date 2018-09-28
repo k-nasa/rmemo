@@ -1,16 +1,14 @@
-use chrono::prelude::*;
-use clap::{App, AppSettings, Arg, ArgMatches, SubCommand};
-use std::fs::*;
-use std::path::*;
-use std::process::{Command, Stdio};
-use std::str::from_utf8;
-
 extern crate chrono;
 extern crate dirs;
 extern crate serde;
 extern crate toml;
 
+use clap::{App, AppSettings, Arg, ArgMatches, SubCommand};
 use config::Config;
+use std::fs::*;
+use std::path::*;
+use std::process::{Command, Stdio};
+use std::str::from_utf8;
 use utils;
 
 pub fn build_app() -> App<'static, 'static> {
@@ -109,7 +107,7 @@ pub fn cmd_new(matches: &ArgMatches, config: &Config) {
 
     let title = match config.enter_time_in_filename {
         Some(true) => {
-            let now = Local::now().format("%Y-%m-%d").to_string();
+            let now = chrono::Local::now().format("%Y-%m-%d").to_string();
             format!("{}{}.md", now, title)
         }
         _ => format!("{}.md", title),

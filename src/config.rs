@@ -1,14 +1,13 @@
-use std::fs::*;
-use std::io::prelude::*;
-use std::io::Result;
-use std::path::*;
-use std::str::from_utf8;
-
 extern crate chrono;
 extern crate dirs;
 extern crate serde;
 extern crate toml;
 
+use std::fs::*;
+use std::io::prelude::*;
+use std::io::Result;
+use std::path::*;
+use std::str::from_utf8;
 use utils::home_dir_string;
 
 #[derive(Deserialize, Serialize, Debug)]

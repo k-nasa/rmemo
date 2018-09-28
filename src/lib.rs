@@ -2,10 +2,6 @@ pub mod commands;
 pub mod config;
 pub mod utils;
 
-extern crate chrono;
-extern crate dirs;
-extern crate serde;
-extern crate toml;
 #[macro_use]
 extern crate clap;
 #[macro_use]

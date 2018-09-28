@@ -1,4 +1,5 @@
-use dirs::home_dir;
+extern crate dirs;
+
 use std::io::*;
 use std::str::FromStr;
 
@@ -9,7 +10,7 @@ pub fn read<T: FromStr>() -> T {
 }
 
 pub fn home_dir_string() -> String {
-    match home_dir() {
+    match dirs::home_dir() {
         Some(dir) => dir.to_str().unwrap().to_string(),
         _ => panic!("Home directory is not set"),
     }
