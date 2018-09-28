@@ -31,7 +31,7 @@ fn run(mut app: clap::App) {
     };
 
     match app.clone().get_matches().subcommand() {
-        ("config", Some(_)) => cmd_config(),
+        ("config", Some(_)) => cmd_config(&config),
 
         ("delete", Some(_)) => cmd_delete(),
 
@@ -60,7 +60,7 @@ impl Config {
     /// Read the file in which the setting file is described.
     /// If not, create it
     pub fn load_config() -> Result<Config> {
-        let mut file = Config::load_or_create_file();
+        let mut file = Config::load_or_create_config_file();
 
         let mut buf = vec![];
         file.read_to_end(&mut buf)?;
@@ -89,7 +89,7 @@ impl Config {
 
     ///Get the file pointer of the setting file.
     ///When there is no file, a setting file is created.
-    fn load_or_create_file() -> File {
+    fn load_or_create_config_file() -> File {
         //FIXME Not compatible with windows
         let dir = match dirs::home_dir() {
             Some(dir) => Path::new(&dir.to_str().unwrap().to_string()).join(".config/rsmemo/"), // Change path as test
@@ -202,7 +202,24 @@ fn home_dir_string() -> String {
     }
 }
 
-fn cmd_config() {}
+fn cmd_config(config: &Config) {
+    let dir = match dirs::home_dir() {
+        Some(dir) => Path::new(&dir.to_str().unwrap().to_string()).join(".config/rsmemo/"), // Change path as test
+        _ => Path::new("./").join(".config/memo/"),
+    };
+
+    DirBuilder::new()
+        .recursive(true)
+        .create(dir.clone())
+        .unwrap();
+
+    let filepath = &dir.join("config.toml");
+    let filepath = filepath.to_str().unwrap();
+
+    let editor = config.editor();
+    run_editor(editor, filepath);
+}
+
 fn cmd_delete() {}
 
 fn cmd_edit(matches: &ArgMatches, config: &Config) {
