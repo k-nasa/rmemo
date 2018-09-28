@@ -122,7 +122,7 @@ pub fn cmd_new(matches: &ArgMatches, config: &Config) {
     run_editor(editor, &filepath);
 }
 
-pub fn run_editor(editor: &str, filepath: &str) {
+fn run_editor(editor: &str, filepath: &str) {
     let mut editor_process = Command::new(editor)
         .arg(filepath)
         .spawn()
@@ -131,7 +131,7 @@ pub fn run_editor(editor: &str, filepath: &str) {
     editor_process.wait().expect("failed to run");
 }
 
-pub fn run_selector(selector: &str, dir: &str) -> String {
+fn run_selector(selector: &str, dir: &str) -> String {
     let selector_process = Command::new(selector)
         .current_dir(dir)
         .stdout(Stdio::piped())
