@@ -30,7 +30,7 @@ pub fn run() {
 
         ("grep", Some(matches)) => cmd_grep(matches, &config),
 
-        ("list", Some(_)) => cmd_list(),
+        ("list", Some(matches)) => cmd_list(matches, &config),
 
         ("new", Some(matches)) => cmd_new(matches, &config),
 

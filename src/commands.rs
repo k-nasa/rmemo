@@ -10,6 +10,7 @@ use std::fs::{create_dir_all, read_dir, DirBuilder};
 use std::path::*;
 use std::process::{Command, Stdio};
 use std::str::from_utf8;
+use std::string::*;
 use utils;
 
 pub fn build_app() -> App<'static, 'static> {
@@ -135,7 +136,28 @@ pub fn cmd_grep(matches: &ArgMatches, config: &Config) {
     grep_process.wait().expect("failed to run");
 }
 
-pub fn cmd_list() {}
+pub fn cmd_list(matches: &ArgMatches, config: &Config) {
+    let pattern = match matches.value_of("pattern") {
+        Some(pattern) => pattern.to_string(),
+        None => String::new(),
+    };
+
+    let is_full_path = matches.is_present("full_path");
+
+    let memo_dir = config.memos_dir();
+    let files: Vec<String> = read_dir(memo_dir)
+        .unwrap()
+        .map(|dir_entry| match is_full_path {
+            true => dir_entry.unwrap().path().to_str().unwrap().to_string(),
+            false => dir_entry.unwrap().file_name().into_string().unwrap(),
+        })
+        .filter(|c| c.contains(&pattern))
+        .collect();
+
+    for file in files {
+        println!("{}", file);
+    }
+}
 
 pub fn cmd_new(matches: &ArgMatches, config: &Config) {
     let title = match matches.value_of("title") {
