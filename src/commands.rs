@@ -5,7 +5,7 @@ extern crate toml;
 
 use clap::{App, AppSettings, Arg, ArgMatches, SubCommand};
 use config::Config;
-use std::fs::*;
+use std::fs::{create_dir_all, read_dir, DirBuilder};
 use std::path::*;
 use std::process::{Command, Stdio};
 use std::str::from_utf8;
