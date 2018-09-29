@@ -1,16 +1,21 @@
 extern crate chrono;
 extern crate dirs;
 extern crate serde;
+extern crate termion;
 extern crate toml;
 
 use clap::{App, AppSettings, Arg, ArgMatches, SubCommand};
 use colored::*;
 use config::Config;
+use std::fs::remove_file;
 use std::fs::{create_dir_all, read_dir, DirBuilder};
+use std::io::*;
 use std::path::*;
 use std::process::{Command, Stdio};
 use std::str::from_utf8;
 use std::string::*;
+use termion::event::{Event, Key};
+use termion::input::TermRead;
 use utils;
 
 pub fn build_app() -> App<'static, 'static> {
@@ -28,7 +33,8 @@ pub fn build_app() -> App<'static, 'static> {
         .subcommand(
             SubCommand::with_name("delete")
                 .alias("d")
-                .about("delete memos"),
+                .about("delete memos")
+                .arg(Arg::with_name("pattern").help("Pattern search")),
         )
         .subcommand(
             SubCommand::with_name("edit")
@@ -84,7 +90,58 @@ pub fn cmd_config(config: &Config) {
     run_editor(editor, filepath);
 }
 
-pub fn cmd_delete() {}
+pub fn cmd_delete(matches: &ArgMatches, config: &Config) {
+    let pattern = match matches.value_of("pattern") {
+        Some(pattern) => pattern.to_string(),
+        None => String::new(),
+    };
+
+    let memo_dir = config.memos_dir();
+    let full_path_files: Vec<String> = read_dir(memo_dir)
+        .unwrap()
+        .map(|dir_entry| dir_entry.unwrap().path().to_str().unwrap().to_string())
+        .filter(|c| c.contains(&pattern))
+        .collect();
+
+    let files: Vec<String> = read_dir(memo_dir)
+        .unwrap()
+        .map(|dir_entry| dir_entry.unwrap().file_name().into_string().unwrap())
+        .filter(|c| c.contains(&pattern))
+        .collect();
+
+    if files.is_empty() {
+        println!("{}", "No matched file".yellow());
+        return;
+    }
+
+    for file in files.clone() {
+        println!("{}", file);
+    }
+
+    println!("{}", "Will delete those entry. Are you sure?".red());
+    println!("Are you sure?(y/n) :");
+
+    for c in stdin().events() {
+        match c.unwrap() {
+            Event::Key(Key::Char('y')) => break,
+            Event::Key(Key::Char('Y')) => break,
+            _ => return,
+        }
+    }
+
+    println!("Really?(y/n) :");
+    for c in stdin().events() {
+        match c.unwrap() {
+            Event::Key(Key::Char('y')) => break,
+            Event::Key(Key::Char('Y')) => break,
+            _ => return,
+        }
+    }
+
+    for file in full_path_files {
+        remove_file(file).expect("failed remove files");
+    }
+}
 
 pub fn cmd_edit(matches: &ArgMatches, config: &Config) {
     let mut title = match matches.value_of("title") {
