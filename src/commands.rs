@@ -52,7 +52,8 @@ pub fn build_app() -> App<'static, 'static> {
                 .arg(Arg::with_name("pattern").help("Pattern search"))
                 .arg(
                     Arg::with_name("full_path")
-                        .help("Pattern search")
+                        .help("full_path")
+                        .short("f")
                         .long("full_path"),
                 ),
         )
