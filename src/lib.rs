@@ -6,6 +6,7 @@ pub mod utils;
 extern crate clap;
 #[macro_use]
 extern crate serde_derive;
+extern crate colored;
 
 use commands::*;
 use config::Config;
@@ -29,7 +30,7 @@ pub fn run() {
 
         ("grep", Some(matches)) => cmd_grep(matches, &config),
 
-        ("list", Some(_)) => cmd_list(),
+        ("list", Some(matches)) => cmd_list(matches, &config),
 
         ("new", Some(matches)) => cmd_new(matches, &config),
 
