@@ -35,6 +35,16 @@ pub fn build_app() -> App<'static, 'static> {
                 .arg(Arg::with_name("title").help("edit file title")),
         )
         .subcommand(
+            SubCommand::with_name("grep")
+                .alias("g")
+                .about("grep memos")
+                .arg(
+                    Arg::with_name("argument")
+                        .help("grep command argument")
+                        .required(true),
+                ),
+        )
+        .subcommand(
             SubCommand::with_name("list")
                 .alias("l")
                 .about("show memos list"),
