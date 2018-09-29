@@ -24,9 +24,9 @@ pub fn build_app() -> App<'static, 'static> {
                 .about("edit config file"),
         )
         .subcommand(
-            SubCommand::with_name("list")
-                .alias("l")
-                .about("show memos list"),
+            SubCommand::with_name("delete")
+                .alias("d")
+                .about("delete memos"),
         )
         .subcommand(
             SubCommand::with_name("edit")
@@ -35,9 +35,9 @@ pub fn build_app() -> App<'static, 'static> {
                 .arg(Arg::with_name("title").help("edit file title")),
         )
         .subcommand(
-            SubCommand::with_name("delete")
-                .alias("d")
-                .about("delete memos"),
+            SubCommand::with_name("list")
+                .alias("l")
+                .about("show memos list"),
         )
         .subcommand(
             SubCommand::with_name("new")
