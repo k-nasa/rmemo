@@ -127,7 +127,7 @@ pub fn cmd_grep(matches: &ArgMatches, config: &Config) {
         .map(|dir_entry| dir_entry.unwrap().path().to_str().unwrap().to_string())
         .collect();
 
-    let mut grep_process = Command::new("grep")
+    let mut grep_process = Command::new(config.grep_command())
         .arg(argument)
         .args(files)
         .spawn()
