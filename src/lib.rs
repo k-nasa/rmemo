@@ -6,6 +6,7 @@ pub mod utils;
 extern crate clap;
 #[macro_use]
 extern crate serde_derive;
+extern crate colored;
 
 use commands::*;
 use config::Config;

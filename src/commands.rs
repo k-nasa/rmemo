@@ -4,6 +4,7 @@ extern crate serde;
 extern crate toml;
 
 use clap::{App, AppSettings, Arg, ArgMatches, SubCommand};
+use colored::*;
 use config::Config;
 use std::fs::{create_dir_all, read_dir, DirBuilder};
 use std::path::*;
