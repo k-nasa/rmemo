@@ -168,6 +168,11 @@ pub fn cmd_new(matches: &ArgMatches, config: &Config) {
         }
     };
 
+    if title.is_empty() {
+        println!("{}", "Title is required!!".red());
+        return;
+    }
+
     let dir = config.memos_dir();
     let editor = config.editor();
 
