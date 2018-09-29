@@ -102,6 +102,31 @@ pub fn cmd_edit(matches: &ArgMatches, config: &Config) {
     run_editor(editor, &filepath);
 }
 
+pub fn cmd_grep(matches: &ArgMatches, config: &Config) {
+    let argument = match matches.value_of("argument") {
+        Some(argument) => argument,
+        None => {
+            println!("The following required arguments were not provided");
+            return;
+        }
+    };
+
+    let memo_dir = config.memos_dir();
+
+    let files: Vec<String> = read_dir(memo_dir)
+        .unwrap()
+        .map(|dir_entry| dir_entry.unwrap().path().to_str().unwrap().to_string())
+        .collect();
+
+    let mut grep_process = Command::new("grep")
+        .arg(argument)
+        .args(files)
+        .spawn()
+        .expect("faild run grep command");
+
+    grep_process.wait().expect("failed to run");
+}
+
 pub fn cmd_list() {}
 
 pub fn cmd_new(matches: &ArgMatches, config: &Config) {
