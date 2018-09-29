@@ -47,7 +47,13 @@ pub fn build_app() -> App<'static, 'static> {
         .subcommand(
             SubCommand::with_name("list")
                 .alias("l")
-                .about("show memos list"),
+                .about("show memos list")
+                .arg(Arg::with_name("pattern").help("Pattern search"))
+                .arg(
+                    Arg::with_name("full_path")
+                        .help("Pattern search")
+                        .long("full_path"),
+                ),
         )
         .subcommand(
             SubCommand::with_name("new")
