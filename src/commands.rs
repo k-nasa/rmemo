@@ -5,7 +5,7 @@ extern crate toml;
 
 use clap::{App, AppSettings, Arg, ArgMatches, SubCommand};
 use config::Config;
-use std::fs::*;
+use std::fs::{create_dir_all, read_dir, DirBuilder};
 use std::path::*;
 use std::process::{Command, Stdio};
 use std::str::from_utf8;
@@ -24,9 +24,9 @@ pub fn build_app() -> App<'static, 'static> {
                 .about("edit config file"),
         )
         .subcommand(
-            SubCommand::with_name("list")
-                .alias("l")
-                .about("show memos list"),
+            SubCommand::with_name("delete")
+                .alias("d")
+                .about("delete memos"),
         )
         .subcommand(
             SubCommand::with_name("edit")
@@ -35,9 +35,19 @@ pub fn build_app() -> App<'static, 'static> {
                 .arg(Arg::with_name("title").help("edit file title")),
         )
         .subcommand(
-            SubCommand::with_name("delete")
-                .alias("d")
-                .about("delete memos"),
+            SubCommand::with_name("grep")
+                .alias("g")
+                .about("grep memos")
+                .arg(
+                    Arg::with_name("argument")
+                        .help("grep command argument")
+                        .required(true),
+                ),
+        )
+        .subcommand(
+            SubCommand::with_name("list")
+                .alias("l")
+                .about("show memos list"),
         )
         .subcommand(
             SubCommand::with_name("new")
@@ -90,6 +100,31 @@ pub fn cmd_edit(matches: &ArgMatches, config: &Config) {
     let filepath = format!("{}/{}", dir, title);
 
     run_editor(editor, &filepath);
+}
+
+pub fn cmd_grep(matches: &ArgMatches, config: &Config) {
+    let argument = match matches.value_of("argument") {
+        Some(argument) => argument,
+        None => {
+            println!("The following required arguments were not provided");
+            return;
+        }
+    };
+
+    let memo_dir = config.memos_dir();
+
+    let files: Vec<String> = read_dir(memo_dir)
+        .unwrap()
+        .map(|dir_entry| dir_entry.unwrap().path().to_str().unwrap().to_string())
+        .collect();
+
+    let mut grep_process = Command::new("grep")
+        .arg(argument)
+        .args(files)
+        .spawn()
+        .expect("faild run grep command");
+
+    grep_process.wait().expect("failed to run");
 }
 
 pub fn cmd_list() {}

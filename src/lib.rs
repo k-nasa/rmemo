@@ -27,6 +27,8 @@ pub fn run() {
 
         ("edit", Some(matches)) => cmd_edit(matches, &config),
 
+        ("grep", Some(matches)) => cmd_grep(matches, &config),
+
         ("list", Some(_)) => cmd_list(),
 
         ("new", Some(matches)) => cmd_new(matches, &config),
