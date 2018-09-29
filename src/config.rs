@@ -16,6 +16,7 @@ pub struct Config {
     memos_dir: Option<String>,
     editor: Option<String>,
     selector: Option<String>,
+    grep_command: Option<String>,
     template_file_path: Option<String>,
     pub enter_time_in_filename: Option<bool>,
 }
@@ -110,6 +111,14 @@ impl Config {
             None => panic!("Editor is not set"),
         }
     }
+
+    /// Unwrap and return the grep_command property
+    pub fn grep_command(&self) -> &String {
+        match self.grep_command {
+            Some(ref grep_command) => grep_command,
+            None => panic!("grep_command is not set"),
+        }
+    }
 }
 
 impl Default for Config {
@@ -117,6 +126,7 @@ impl Default for Config {
         let memos_dir = Some(home_dir_string() + "/.config/memo/memos");
         let editor = Some(String::from("vim"));
         let selector = Some(String::from("fzf"));
+        let grep_command = Some(String::from("grep"));
         let template_file_path = Some(String::from("./")); //FIXME
         let enter_time_in_filename = Some(true);
 
@@ -124,6 +134,7 @@ impl Default for Config {
             memos_dir,
             editor,
             selector,
+            grep_command,
             template_file_path,
             enter_time_in_filename,
         }
