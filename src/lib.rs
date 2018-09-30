@@ -7,6 +7,7 @@ extern crate clap;
 #[macro_use]
 extern crate serde_derive;
 extern crate colored;
+extern crate termion;
 
 use commands::*;
 use config::Config;
@@ -24,7 +25,7 @@ pub fn run() {
     match app.clone().get_matches().subcommand() {
         ("config", Some(_)) => cmd_config(&config),
 
-        ("delete", Some(_)) => cmd_delete(),
+        ("delete", Some(matches)) => cmd_delete(matches, &config),
 
         ("edit", Some(matches)) => cmd_edit(matches, &config),
 
