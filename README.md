@@ -1,4 +1,5 @@
 [![Build Status](https://travis-ci.org/k-nasa/memo_command.svg?branch=master)](https://travis-ci.org/k-nasa/memo_command)
+[![crate-name at crates.io](https://img.shields.io/crates/v/rmemo.svg)](https://crates.io/crates/rmemo)
 
 # Memo Command
 CLI memo tool
