@@ -74,7 +74,7 @@ pub fn build_app() -> App<'static, 'static> {
 
 pub fn cmd_config(config: &Config) {
     let dir = match dirs::home_dir() {
-        Some(dir) => Path::new(&dir.to_str().unwrap().to_string()).join(".config/rsmemo/"), // Change path as test
+        Some(dir) => Path::new(&dir.to_str().unwrap().to_string()).join(".config/memo/"),
         _ => Path::new("./").join(".config/memo/"),
     };
 
@@ -97,6 +97,7 @@ pub fn cmd_delete(matches: &ArgMatches, config: &Config) {
     };
 
     let memo_dir = config.memos_dir();
+
     let full_path_files: Vec<String> = read_dir(memo_dir)
         .unwrap()
         .map(|dir_entry| dir_entry.unwrap().path().to_str().unwrap().to_string())
@@ -202,6 +203,8 @@ pub fn cmd_list(matches: &ArgMatches, config: &Config) {
     let is_full_path = matches.is_present("full_path");
 
     let memo_dir = config.memos_dir();
+    create_dir_all(memo_dir).expect("faild create memos_dir");
+
     let files: Vec<String> = read_dir(memo_dir)
         .unwrap()
         .map(|dir_entry| {
