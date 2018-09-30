@@ -122,26 +122,24 @@ pub fn cmd_delete(matches: &ArgMatches, config: &Config) {
     println!("{}", "Will delete those entry. Are you sure?".red());
     println!("Are you sure?(y/n) :");
 
-    for c in stdin().events() {
-        match c.unwrap() {
-            Event::Key(Key::Char('y')) => break,
-            Event::Key(Key::Char('Y')) => break,
-            _ => return,
-        }
+    match stdin().events().nth(0).unwrap().unwrap() {
+        Event::Key(Key::Char('y')) => (),
+        Event::Key(Key::Char('Y')) => (),
+        _ => return,
     }
 
     println!("Really?(y/n) :");
-    for c in stdin().events() {
-        match c.unwrap() {
-            Event::Key(Key::Char('y')) => break,
-            Event::Key(Key::Char('Y')) => break,
-            _ => return,
-        }
+    match stdin().events().nth(0).unwrap().unwrap() {
+        Event::Key(Key::Char('y')) => (),
+        Event::Key(Key::Char('Y')) => (),
+        _ => return,
     }
 
     for file in full_path_files {
         remove_file(file).expect("failed remove files");
     }
+
+    println!("{}", "All file delete".green());
 }
 
 pub fn cmd_edit(matches: &ArgMatches, config: &Config) {
