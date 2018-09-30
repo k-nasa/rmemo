@@ -97,6 +97,7 @@ pub fn cmd_delete(matches: &ArgMatches, config: &Config) {
     };
 
     let memo_dir = config.memos_dir();
+    create_dir_all(memo_dir).expect("faild create memos_dir");
 
     let full_path_files: Vec<String> = read_dir(memo_dir)
         .unwrap()
