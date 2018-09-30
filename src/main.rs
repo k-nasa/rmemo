@@ -1,5 +1,5 @@
-extern crate memo;
-use memo::run;
+extern crate rmemo;
+use rmemo::run;
 
 fn main() {
     run();

@@ -1,5 +1,5 @@
 [package]
-name = "memo"
+name = "rmemo"
 version = "0.1.0"
 authors = ["k-nasa <htilcs1115@gmail.com>"]
 repository = "https://github.com/k-nasa/memo_command"
