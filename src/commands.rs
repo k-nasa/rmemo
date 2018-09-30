@@ -74,8 +74,8 @@ pub fn build_app() -> App<'static, 'static> {
 
 pub fn cmd_config(config: &Config) {
     let dir = match dirs::home_dir() {
-        Some(dir) => Path::new(&dir.to_str().unwrap().to_string()).join(".config/memo/"),
-        _ => Path::new("./").join(".config/memo/"),
+        Some(dir) => Path::new(&dir.to_str().unwrap().to_string()).join(".config/rmemo/"),
+        _ => Path::new("./").join(".config/rmemo/"),
     };
 
     DirBuilder::new()

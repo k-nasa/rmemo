@@ -57,8 +57,8 @@ impl Config {
     pub fn load_or_create_config_file() -> File {
         //FIXME Not compatible with windows
         let dir = match dirs::home_dir() {
-            Some(dir) => Path::new(&dir.to_str().unwrap().to_string()).join(".config/memo/"),
-            _ => Path::new("./").join(".config/memo/"),
+            Some(dir) => Path::new(&dir.to_str().unwrap().to_string()).join(".config/rmemo/"),
+            _ => Path::new("./").join(".config/rmemo/"),
         };
 
         DirBuilder::new()
@@ -123,7 +123,7 @@ impl Config {
 
 impl Default for Config {
     fn default() -> Self {
-        let memos_dir = Some(home_dir_string() + "/.config/memo/memos");
+        let memos_dir = Some(home_dir_string() + "/.config/rmemo/memos");
         let editor = Some(String::from("vim"));
         let selector = Some(String::from("fzf"));
         let grep_command = Some(String::from("grep"));
