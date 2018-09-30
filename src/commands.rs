@@ -184,6 +184,11 @@ pub fn cmd_grep(matches: &ArgMatches, config: &Config) {
         .map(|dir_entry| dir_entry.unwrap().path().to_str().unwrap().to_string())
         .collect();
 
+    if files.is_empty() {
+        println!("{}", "file is nothing".yellow());
+        return;
+    }
+
     let mut grep_process = Command::new(config.grep_command())
         .arg(argument)
         .args(files)
