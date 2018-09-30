@@ -7,24 +7,44 @@ CLI memo tool
 
 ## Usage
 ```
-memo 0.1.0
+rmemo 0.1.1
 k-nasa <htilcs1115@gmail.com>
 CLI memo command
 
 USAGE:
-    memo [SUBCOMMAND]
+    rmemo [SUBCOMMAND]
 
 FLAGS:
-    -h, --help       Prints help information
-    -V, --version    Prints version information
+    -h, --help
+            Prints help information
+
+    -V, --version
+            Prints version information
+
 
 SUBCOMMANDS:
+    help      help
     config    edit config file
     delete    delete memos
     edit      edit memo
-    help      help
+    grep      grep memos
     list      show memos list
-    new       create new memo
+```
+
+## Installation
+
+```
+$cargo install rmemo
+```
+
+## Configuration
+```
+memos_dir = "/Users/asan/.config/rmemo/memos"
+editor = "nvim"
+selector = "fzf"
+grep_command = "grep"
+template_file_path = "./"
+enter_time_in_filename = true
 ```
 
 ## License
