@@ -1,4 +1,4 @@
-[![Build Status](https://travis-ci.org/k-nasa/memo_command.svg?branch=master)](https://travis-ci.org/k-nasa/memo_command)
+[![Build Status](https://travis-ci.org/k-nasa/rmemo.svg?branch=master)](https://travis-ci.org/k-nasa/rmemo)
 [![crate-name at crates.io](https://img.shields.io/crates/v/rmemo.svg)](https://crates.io/crates/rmemo)
 
 # Memo Command
