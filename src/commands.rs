@@ -240,8 +240,24 @@ pub fn cmd_new(matches: &ArgMatches, config: &Config) {
         return;
     }
 
-    let dir = config.memos_dir();
+    let mut dir = config.memos_dir().clone();
     let editor = config.editor();
+
+    // The last is the file name, the other is the directory structure
+    let mut element: Vec<&str> = title.split('/').collect();
+
+    let title: String;
+    if element.len() < 2 {
+        title = element.first().unwrap().to_string();
+    } else {
+        title = element.last().unwrap().to_string();
+        element.pop();
+
+        for elm in element {
+            dir.push('/');
+            dir.push_str(&elm.to_string());
+        }
+    }
 
     let title = match config.enter_time_in_filename {
         Some(true) => {
