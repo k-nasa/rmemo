@@ -1,6 +1,6 @@
 [package]
 name = "rmemo"
-version = "0.1.1"
+version = "0.1.2"
 authors = ["k-nasa <htilcs1115@gmail.com>"]
 repository = "https://github.com/k-nasa/memo_command"
 license-file = "LICENSE"
