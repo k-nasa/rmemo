@@ -33,10 +33,10 @@ SUBCOMMANDS:
 
 ## Installation
 ### On macOS
-'''
+```
 brew tap k-nasa/homebrew-rmemo
 brew install rmemo
-'''
+```
 
 ### From source
 ```
