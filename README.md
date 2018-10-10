@@ -7,7 +7,7 @@ CLI memo tool
 
 ## Usage
 ```
-rmemo 0.1.1
+rmemo 0.1.2
 k-nasa <htilcs1115@gmail.com>
 CLI memo command
 
@@ -32,7 +32,13 @@ SUBCOMMANDS:
 ```
 
 ## Installation
+### On macOS
+'''
+brew tap k-nasa/homebrew-rmemo
+brew install rmemo
+'''
 
+### From source
 ```
 $cargo install rmemo
 ```
