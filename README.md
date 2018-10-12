@@ -29,6 +29,7 @@ SUBCOMMANDS:
     edit      edit memo
     grep      grep memos
     list      show memos list
+    new       create new memo
 ```
 
 ## Installation
@@ -40,7 +41,7 @@ brew install rmemo
 
 ### From source
 ```
-$cargo install rmemo
+cargo install rmemo
 ```
 
 ## Configuration
