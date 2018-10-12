@@ -277,6 +277,10 @@ pub fn cmd_new(matches: &ArgMatches, config: &Config) {
 
     create_dir_all(dir).expect("faild create memos_dir");
 
+    if matches.is_present("template") && !config.template_file_path().is_empty() {
+        copy(config.template_file_path(), &filepath).expect("faild template file copy");
+    }
+
     run_editor(editor, &filepath);
 }
 
