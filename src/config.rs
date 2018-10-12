@@ -119,6 +119,14 @@ impl Config {
             None => panic!("grep_command is not set"),
         }
     }
+
+    /// Unwrap and return the template_file_path property
+    pub fn template_file_path(&self) -> &String {
+        match self.template_file_path {
+            Some(ref template_file_path) => template_file_path,
+            None => panic!("template_file_path is not set"),
+        }
+    }
 }
 
 impl Default for Config {
