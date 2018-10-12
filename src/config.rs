@@ -135,7 +135,7 @@ impl Default for Config {
         let editor = Some(String::from("vim"));
         let selector = Some(String::from("fzf"));
         let grep_command = Some(String::from("grep"));
-        let template_file_path = Some(String::from("./")); //FIXME
+        let template_file_path = Some(String::from(""));
         let enter_time_in_filename = Some(true);
 
         Config {
