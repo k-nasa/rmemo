@@ -8,7 +8,7 @@ use clap::{App, AppSettings, Arg, ArgMatches, SubCommand};
 use colored::*;
 use config::Config;
 use std::fs::remove_file;
-use std::fs::{create_dir_all, read_dir, DirBuilder};
+use std::fs::{copy, create_dir_all, read_dir, DirBuilder};
 use std::io::*;
 use std::path::*;
 use std::process::{Command, Stdio};
@@ -68,6 +68,12 @@ pub fn build_app() -> App<'static, 'static> {
             SubCommand::with_name("new")
                 .alias("n")
                 .about("create new memo")
+                .arg(
+                    Arg::with_name("template")
+                        .help("create based on template file")
+                        .short("t")
+                        .long("template"),
+                )
                 .arg(Arg::with_name("title").help("create file title")),
         )
 }
