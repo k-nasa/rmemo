@@ -233,7 +233,7 @@ pub fn cmd_list(matches: &ArgMatches, config: &Config) {
 }
 
 pub fn cmd_new(matches: &ArgMatches, config: &Config) {
-    let title = match matches.value_of("title") {
+    let input_filepath = match matches.value_of("title") {
         Some(title) => title.to_string(),
         None => {
             println!("Input title :");
@@ -241,7 +241,7 @@ pub fn cmd_new(matches: &ArgMatches, config: &Config) {
         }
     };
 
-    if title.is_empty() {
+    if input_filepath.is_empty() {
         println!("{}", "Title is required!!".red());
         return;
     }
@@ -250,7 +250,7 @@ pub fn cmd_new(matches: &ArgMatches, config: &Config) {
     let editor = config.editor();
 
     // The last is the file name, the other is the directory structure
-    let mut element: Vec<&str> = title.split('/').collect();
+    let mut element: Vec<&str> = input_filepath.split('/').collect();
 
     let title: String;
     if element.len() < 2 {
