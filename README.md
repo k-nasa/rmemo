@@ -7,7 +7,7 @@ CLI memo tool
 
 ## Usage
 ```
-rmemo 0.1.2
+rmemo 0.1.3
 k-nasa <htilcs1115@gmail.com>
 CLI memo command
 
