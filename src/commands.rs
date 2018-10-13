@@ -8,7 +8,7 @@ use clap::{App, AppSettings, Arg, ArgMatches, SubCommand};
 use colored::*;
 use config::Config;
 use std::fs::remove_file;
-use std::fs::{create_dir_all, read_dir, DirBuilder};
+use std::fs::{copy, create_dir_all, read_dir, DirBuilder};
 use std::io::*;
 use std::path::*;
 use std::process::{Command, Stdio};
@@ -68,6 +68,12 @@ pub fn build_app() -> App<'static, 'static> {
             SubCommand::with_name("new")
                 .alias("n")
                 .about("create new memo")
+                .arg(
+                    Arg::with_name("template")
+                        .help("create based on template file")
+                        .short("t")
+                        .long("template"),
+                )
                 .arg(Arg::with_name("title").help("create file title")),
         )
 }
@@ -227,7 +233,7 @@ pub fn cmd_list(matches: &ArgMatches, config: &Config) {
 }
 
 pub fn cmd_new(matches: &ArgMatches, config: &Config) {
-    let title = match matches.value_of("title") {
+    let input_filepath = match matches.value_of("title") {
         Some(title) => title.to_string(),
         None => {
             println!("Input title :");
@@ -235,7 +241,7 @@ pub fn cmd_new(matches: &ArgMatches, config: &Config) {
         }
     };
 
-    if title.is_empty() {
+    if input_filepath.is_empty() {
         println!("{}", "Title is required!!".red());
         return;
     }
@@ -244,7 +250,7 @@ pub fn cmd_new(matches: &ArgMatches, config: &Config) {
     let editor = config.editor();
 
     // The last is the file name, the other is the directory structure
-    let mut element: Vec<&str> = title.split('/').collect();
+    let mut element: Vec<&str> = input_filepath.split('/').collect();
 
     let title: String;
     if element.len() < 2 {
@@ -270,6 +276,10 @@ pub fn cmd_new(matches: &ArgMatches, config: &Config) {
     let filepath = format!("{}/{}", dir, title);
 
     create_dir_all(dir).expect("faild create memos_dir");
+
+    if matches.is_present("template") && !config.template_file_path().is_empty() {
+        copy(config.template_file_path(), &filepath).expect("faild template file copy");
+    }
 
     run_editor(editor, &filepath);
 }

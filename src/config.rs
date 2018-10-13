@@ -119,6 +119,14 @@ impl Config {
             None => panic!("grep_command is not set"),
         }
     }
+
+    /// Unwrap and return the template_file_path property
+    pub fn template_file_path(&self) -> &String {
+        match self.template_file_path {
+            Some(ref template_file_path) => template_file_path,
+            None => panic!("template_file_path is not set"),
+        }
+    }
 }
 
 impl Default for Config {
@@ -127,7 +135,7 @@ impl Default for Config {
         let editor = Some(String::from("vim"));
         let selector = Some(String::from("fzf"));
         let grep_command = Some(String::from("grep"));
-        let template_file_path = Some(String::from("./")); //FIXME
+        let template_file_path = Some(String::from(""));
         let enter_time_in_filename = Some(true);
 
         Config {
