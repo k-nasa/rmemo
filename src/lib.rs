@@ -17,6 +17,7 @@ use commands::cmd_grep::cmd_grep;
 use commands::cmd_list::cmd_list;
 use commands::cmd_new::cmd_new;
 use config::Config;
+use std::fs::create_dir_all;
 
 pub fn run() {
     let mut app = build_app();
@@ -27,6 +28,8 @@ pub fn run() {
             return;
         }
     };
+    let memo_dir = config.memos_dir();
+    create_dir_all(memo_dir).expect("faild create memos_dir");
 
     match app.clone().get_matches().subcommand() {
         ("config", Some(_)) => cmd_config(&config),
