@@ -8,6 +8,17 @@ use std::string::*;
 use termion::event::{Event, Key};
 use termion::input::TermRead;
 
+macro_rules! confirmation {
+    ($question_string:expr) => {
+        println!("{}", $question_string);
+        match stdin().events().nth(0).unwrap().unwrap() {
+            Event::Key(Key::Char('y')) => (),
+            Event::Key(Key::Char('Y')) => (),
+            _ => return,
+        }
+    };
+}
+
 pub fn cmd_delete(matches: &ArgMatches, config: &Config) {
     let pattern = match matches.value_of("pattern") {
         Some(pattern) => pattern.to_string(),
@@ -29,20 +40,8 @@ pub fn cmd_delete(matches: &ArgMatches, config: &Config) {
     }
 
     println!("{}", "Will delete those entry. Are you sure?".red());
-    println!("Are you sure?(y/n) :");
-
-    match stdin().events().nth(0).unwrap().unwrap() {
-        Event::Key(Key::Char('y')) => (),
-        Event::Key(Key::Char('Y')) => (),
-        _ => return,
-    }
-
-    println!("Really?(y/n) :");
-    match stdin().events().nth(0).unwrap().unwrap() {
-        Event::Key(Key::Char('y')) => (),
-        Event::Key(Key::Char('Y')) => (),
-        _ => return,
-    }
+    confirmation!("Are you sure?(y/n) :");
+    confirmation!("Really?(y/n) :");
 
     for file in full_path_files {
         remove_file(file).expect("failed remove files");
