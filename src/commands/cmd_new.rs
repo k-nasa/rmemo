@@ -50,8 +50,7 @@ pub fn cmd_new(matches: &ArgMatches, config: &Config) {
     };
 
     let filepath = format!("{}/{}", dir, title);
-
-    create_dir_all(dir).expect("faild create memos_dir");
+    create_dir_all(dir).expect("faild create directory");
 
     if matches.is_present("template") && !config.template_file_path().is_empty() {
         copy(config.template_file_path(), &filepath).expect("faild template file copy");
