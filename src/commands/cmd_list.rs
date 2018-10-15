@@ -1,6 +1,6 @@
 use clap::ArgMatches;
 use config::Config;
-use std::fs::{create_dir_all, read_dir};
+use std::fs::read_dir;
 
 pub fn cmd_list(matches: &ArgMatches, config: &Config) {
     let pattern = match matches.value_of("pattern") {
@@ -11,7 +11,6 @@ pub fn cmd_list(matches: &ArgMatches, config: &Config) {
     let is_full_path = matches.is_present("full_path");
 
     let memo_dir = config.memos_dir();
-    create_dir_all(memo_dir).expect("faild create memos_dir");
 
     let files: Vec<String> = read_dir(memo_dir)
         .unwrap()

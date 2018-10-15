@@ -1,8 +1,8 @@
 use clap::ArgMatches;
 use colored::*;
 use config::Config;
+use std::fs::read_dir;
 use std::fs::remove_file;
-use std::fs::{create_dir_all, read_dir};
 use std::io::*;
 use std::string::*;
 use termion::event::{Event, Key};
@@ -15,7 +15,6 @@ pub fn cmd_delete(matches: &ArgMatches, config: &Config) {
     };
 
     let memo_dir = config.memos_dir();
-    create_dir_all(memo_dir).expect("faild create memos_dir");
 
     let full_path_files: Vec<String> = read_dir(memo_dir)
         .unwrap()
