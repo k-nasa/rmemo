@@ -50,7 +50,7 @@ memos_dir = "/Users/asan/.config/rmemo/memos"
 editor = "nvim"
 selector = "fzf"
 grep_command = "grep"
-template_file_path = "./"
+template_file_path = ""
 enter_time_in_filename = true
 ```
 
