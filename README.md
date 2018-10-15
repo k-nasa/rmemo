@@ -1,9 +1,20 @@
 [![Build Status](https://travis-ci.org/k-nasa/rmemo.svg?branch=master)](https://travis-ci.org/k-nasa/rmemo)
 [![crate-name at crates.io](https://img.shields.io/crates/v/rmemo.svg)](https://crates.io/crates/rmemo)
 
-# Memo Command
-CLI memo tool
+# rmemo
+rmemo is tool for taking notes fast on the command line
 
+## Installation
+### On macOS
+```
+brew tap k-nasa/homebrew-rmemo
+brew install rmemo
+```
+
+### From source
+```
+cargo install rmemo
+```
 
 ## Usage
 ```
@@ -32,17 +43,6 @@ SUBCOMMANDS:
     new       create new memo
 ```
 
-## Installation
-### On macOS
-```
-brew tap k-nasa/homebrew-rmemo
-brew install rmemo
-```
-
-### From source
-```
-cargo install rmemo
-```
 
 ## Configuration
 ```
