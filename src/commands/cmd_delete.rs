@@ -50,7 +50,7 @@ pub fn cmd_delete(matches: &ArgMatches, config: &Config) {
     println!("{}", "All file delete".green());
 }
 
-fn full_path_files(memo_dir: &String, pattern: &String) -> Vec<String> {
+fn full_path_files(memo_dir: &str, pattern: &str) -> Vec<String> {
     read_dir(memo_dir)
         .unwrap()
         .map(|dir_entry| dir_entry.unwrap().path().to_str().unwrap().to_string())
@@ -58,7 +58,7 @@ fn full_path_files(memo_dir: &String, pattern: &String) -> Vec<String> {
         .collect()
 }
 
-fn display_file_paths(memo_dir: &String, pattern: &String) -> Vec<String> {
+fn display_file_paths(memo_dir: &str, pattern: &str) -> Vec<String> {
     read_dir(memo_dir)
         .unwrap()
         .map(|dir_entry| dir_entry.unwrap().file_name().into_string().unwrap())
