@@ -28,17 +28,12 @@ pub fn cmd_new(matches: &ArgMatches, config: &Config) {
     // The last is the file name, the other is the directory structure
     let mut element: Vec<&str> = input_filepath.split('/').collect();
 
-    let title: String;
-    if element.len() < 2 {
-        title = element.first().unwrap().to_string();
-    } else {
-        title = element.last().unwrap().to_string();
-        element.pop();
+    let title = element.last().unwrap().to_string();
+    element.pop();
 
-        for elm in element {
-            dir.push('/');
-            dir.push_str(&elm.to_string());
-        }
+    for elm in element {
+        dir.push('/');
+        dir.push_str(&elm.to_string());
     }
 
     let title = match config.enter_time_in_filename {
