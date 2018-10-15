@@ -1,14 +1,14 @@
+os: osx
 language: rust
 rust:
   - stable
   - beta
-  - nightly
+  # clippy unsupport nightly
+  # - nightly
 before_script:
   - rustup component add clippy-preview
   - rustup component add rustfmt-preview
 script:
-  - cargo clippy
-  - cargo clippy -- -D warnings
   - cargo clippy --all-targets --all-features -- -D warnings
   - cargo test
   - cargo fmt

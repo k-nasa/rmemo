@@ -58,7 +58,7 @@ impl Config {
         //FIXME Not compatible with windows
         let dir = match dirs::home_dir() {
             Some(dir) => Path::new(&dir.to_str().unwrap().to_string()).join(".config/rmemo/"),
-            _ => Path::new("./").join(".config/rmemo/"),
+            None => panic!("faild fetch home_dir name"),
         };
 
         DirBuilder::new()
