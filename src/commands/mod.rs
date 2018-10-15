@@ -1,9 +1,3 @@
-extern crate chrono;
-extern crate dirs;
-extern crate serde;
-extern crate termion;
-extern crate toml;
-
 use clap::{App, AppSettings, Arg, SubCommand};
 use std::process::{Command, Stdio};
 use std::str::from_utf8;
