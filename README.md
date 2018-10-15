@@ -4,6 +4,8 @@
 # rmemo
 rmemo is tool for taking notes fast on the command line
 
+![demo](https://github.com/k-nasa/rmemo/blob/master/media/demo.gif)
+
 ## Installation
 ### On macOS
 ```
@@ -43,15 +45,36 @@ SUBCOMMANDS:
     new       create new memo
 ```
 
+## Usage example
+Create new note
+```
+$rmemo new
+Title: 
+```
+If you have set up a template, create a note based on it
+```
+$rmemo new -t
+Title: 
+```
+Deletes the note of the file name matching the argument pattern
+```
+rmemo delete hoge
+hoge
+2018-10-15hoge.md
+2018-10-12hoge.md
+2018-10-08hoge.md
+Will delete those entry. Are you sure?
+Are you sure?(y/n) :
+```
 
 ## Configuration
-```
-memos_dir = "/Users/asan/.config/rmemo/memos"
-editor = "nvim"
-selector = "fzf"
-grep_command = "grep"
-template_file_path = ""
-enter_time_in_filename = true
+```toml
+memos_dir = "/Users/asan/.config/rmemo/memos"  # Directory where note is stored
+editor = "nvim"                                # The editor you want to use. I recommend nvim for no particular reason
+selector = "fzf"                               # Selector you want to use. Please choose your favorite one
+grep_command = "grep"                          # Set your favorite grep
+template_file_path = ""                        # Set the template you want to use
+enter_time_in_filename = true                  # Set it to false if timestamp is not required for file name
 ```
 
 ## License
