@@ -1,3 +1,5 @@
+extern crate chrono;
+
 use super::run_editor;
 use clap::ArgMatches;
 use colored::*;

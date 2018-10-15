@@ -1,7 +1,9 @@
+extern crate dirs;
+
 use super::run_editor;
 use config::Config;
 use std::fs::DirBuilder;
-use std::path::*;
+use std::path::Path;
 
 pub fn cmd_config(config: &Config) {
     let dir = match dirs::home_dir() {
