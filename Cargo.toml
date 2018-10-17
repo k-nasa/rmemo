@@ -1,11 +1,12 @@
 [package]
 name = "rmemo"
-version = "0.1.3"
+version = "0.1.4"
 authors = ["k-nasa <htilcs1115@gmail.com>"]
+keywords = ["cli"]
 repository = "https://github.com/k-nasa/memo_command"
 license-file = "LICENSE"
 readme = "README.md"
-description = "CLI memo command"
+description = "Tools for taking notes fast on the CLI"
 
 [dependencies]
 dirs = "1.0.4"
