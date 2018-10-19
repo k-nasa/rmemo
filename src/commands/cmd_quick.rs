@@ -11,4 +11,10 @@ pub fn cmd_quick(matches: &ArgMatches, config: &Config) {
 
 fn append_idea_to_file(idea: &str, config: &Config) {}
 
-fn open_idea_file_with_editor(config: &Config) {}
+fn open_idea_file_with_editor(config: &Config) {
+    let dir = config.memos_dir();
+    let editor = config.editor();
+    let filepath = format!("{}/storage_place_of_your_idea.md", dir);
+
+    run_editor(editor, &filepath);
+}
