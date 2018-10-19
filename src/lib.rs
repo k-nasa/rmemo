@@ -16,6 +16,7 @@ use commands::cmd_edit::cmd_edit;
 use commands::cmd_grep::cmd_grep;
 use commands::cmd_list::cmd_list;
 use commands::cmd_new::cmd_new;
+use commands::cmd_quick::cmd_quick;
 use config::Config;
 use std::fs::create_dir_all;
 
@@ -43,6 +44,8 @@ pub fn run() {
         ("list", Some(matches)) => cmd_list(matches, &config),
 
         ("new", Some(matches)) => cmd_new(matches, &config),
+
+        ("quick", Some(matches)) => cmd_quick(matches, &config),
 
         _ => {
             app.print_long_help().ok();
