@@ -20,9 +20,9 @@ cargo install rmemo
 
 ## Usage
 ```
-rmemo 0.1.3
+rmemo 0.1.5
 k-nasa <htilcs1115@gmail.com>
-CLI memo command
+Tools for taking notes fast on the CLI
 
 USAGE:
     rmemo [SUBCOMMAND]
@@ -43,18 +43,19 @@ SUBCOMMANDS:
     grep      grep memos
     list      show memos list
     new       create new memo
+    quick     Fast memo not to forget idea
 ```
 
 ## Usage example
 Create new note
 ```
 $rmemo new
-Title: 
+Title:
 ```
 If you have set up a template, create a note based on it
 ```
 $rmemo new -t
-Title: 
+Title:
 ```
 Deletes the note of the file name matching the argument pattern
 ```
@@ -66,6 +67,11 @@ hoge
 Will delete those entry. Are you sure?
 Are you sure?(y/n) :
 ```
+If you want to write down ideas right now you can use quick command
+
+'''
+$rmemo quick idea
+'''
 
 ## Configuration
 ```toml
