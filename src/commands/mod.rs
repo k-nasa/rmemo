@@ -68,6 +68,12 @@ pub fn build_app() -> App<'static, 'static> {
                 )
                 .arg(Arg::with_name("title").help("create file title")),
         )
+        .subcommand(
+            SubCommand::with_name("quick")
+                .alias("q")
+                .about("Fast memo not to forget idea")
+                .arg(Arg::with_name("your idea").help("Input your idea")),
+        )
 }
 
 fn run_editor(editor: &str, filepath: &str) {
