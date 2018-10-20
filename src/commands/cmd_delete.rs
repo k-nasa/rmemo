@@ -44,7 +44,7 @@ pub fn cmd_delete(matches: &ArgMatches, config: &Config) {
     confirmation!("Really?(y/n) :");
 
     for file in full_path_files {
-        remove_file(file).expect("failed remove files");
+        remove_file(file).expect("Failed remove files");
     }
 
     println!("{}", "All file delete".green());
