@@ -21,34 +21,34 @@ pub fn build_app() -> App<'static, 'static> {
         .subcommand(
             SubCommand::with_name("config")
                 .alias("c")
-                .about("edit config file"),
+                .about("Edit config file"),
         )
         .subcommand(
             SubCommand::with_name("delete")
                 .alias("d")
-                .about("delete memos")
+                .about("Delete memos")
                 .arg(Arg::with_name("pattern").help("Pattern search")),
         )
         .subcommand(
             SubCommand::with_name("edit")
                 .alias("e")
-                .about("edit memo")
+                .about("Edit memo")
                 .arg(Arg::with_name("title").help("edit file title")),
         )
         .subcommand(
             SubCommand::with_name("grep")
                 .alias("g")
-                .about("grep memos")
+                .about("Grep memos")
                 .arg(
                     Arg::with_name("argument")
-                        .help("grep command argument")
+                        .help("Grep command argument")
                         .required(true),
                 ),
         )
         .subcommand(
             SubCommand::with_name("list")
                 .alias("l")
-                .about("show memos list")
+                .about("Show memos list")
                 .arg(Arg::with_name("pattern").help("Pattern search"))
                 .arg(
                     Arg::with_name("full_path")
@@ -60,10 +60,10 @@ pub fn build_app() -> App<'static, 'static> {
         .subcommand(
             SubCommand::with_name("new")
                 .alias("n")
-                .about("create new memo")
+                .about("Create new memo")
                 .arg(
                     Arg::with_name("template")
-                        .help("create based on template file")
+                        .help("Create based on template file")
                         .short("t")
                         .long("template"),
                 )
@@ -81,9 +81,9 @@ fn run_editor(editor: &str, filepath: &str) {
     let mut editor_process = Command::new(editor)
         .arg(filepath)
         .spawn()
-        .expect("failed open editor");
+        .expect("Failed open editor");
 
-    editor_process.wait().expect("failed to run");
+    editor_process.wait().expect("Failed to run");
 }
 
 fn run_selector(selector: &str, dir: &str) -> String {
@@ -91,7 +91,7 @@ fn run_selector(selector: &str, dir: &str) -> String {
         .current_dir(dir)
         .stdout(Stdio::piped())
         .spawn()
-        .expect("failed run selector command");
+        .expect("Failed run selector command");
 
     let output = selector_process.wait_with_output().unwrap();
     let filename = from_utf8(&output.stdout).unwrap().to_string();
