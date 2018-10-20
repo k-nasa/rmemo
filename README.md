@@ -70,9 +70,9 @@ Are you sure?(y/n) :
 ```
 If you want to write down ideas right now you can use quick command
 
-'''
+```
 $rmemo quick idea
-'''
+```
 
 ## Configuration
 ```toml
