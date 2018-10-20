@@ -1,5 +1,6 @@
 pub mod commands;
 pub mod config;
+pub mod dir_tree;
 pub mod utils;
 
 #[macro_use]
