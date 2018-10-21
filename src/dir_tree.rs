@@ -37,3 +37,9 @@ impl TreeBranch {
         }
     }
 }
+
+impl DirTree {
+    pub fn new(root_dir: &str) -> Self {
+        DirTree::_new(root_dir, false, Vec::new())
+    }
+
