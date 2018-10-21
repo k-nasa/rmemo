@@ -15,7 +15,7 @@ script:
 before_deploy:
   - cargo build --release
   - mkdir "rmemo-${TRAVIS_TAG}"
-  - cp target/release/rmemo LICENSE.txt README.md "rmemo-${TRAVIS_TAG}"
+  - cp target/release/rmemo LICENSE README.md "rmemo-${TRAVIS_TAG}"
   - zip "rmemo-${TRAVIS_TAG}.zip" -r "rmemo-${TRAVIS_TAG}"
 deploy:
   provider: releases
