@@ -1,7 +1,5 @@
+use colored::*;
 use std::fs::read_dir;
-use std::fs::DirEntry;
-use std::fs::*;
-use std::io::Result;
 
 #[derive(Debug)]
 pub struct DirTree {
@@ -101,6 +99,28 @@ impl DirTree {
             is_last,
             dir_path: root_dir.to_string(),
             tree_branches: branch,
+        }
+    }
+
+    pub fn print(self) {
+        if self.tree_branches.is_empty() {
+            println!("{}", self.dir_path.yellow());
+        } else {
+            for branch in self.tree_branches {
+                print!("{}", branch.tree_branch_string());
+            }
+            println!("{}", self.dir_name.cyan());
+        }
+
+        for dir_tree in self.dir_tree {
+            dir_tree.print();
+        }
+
+        for file in self.files {
+            for branch in file.tree_branches {
+                print!("{}", branch.tree_branch_string());
+            }
+            println!(" {}", file.name);
         }
     }
 }
