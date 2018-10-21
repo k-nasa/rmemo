@@ -18,6 +18,7 @@ macro_rules! confirmation {
     };
 }
 
+#[derive(Debug, Clone)]
 struct FileOrDir {
     name: String,
     path: String,
