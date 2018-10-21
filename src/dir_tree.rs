@@ -60,6 +60,21 @@ impl DirTree {
             }
         }
 
+        let len = file_paths.len();
+        let files: Vec<File> = file_paths
+            .iter()
+            .enumerate()
+            .map(|(i, path)| {
+                let name = path2name(path);
+
+                File {
+                    path: path.to_string(),
+                    name,
+                    tree_branches: Vec::new(),
+                    is_last: len == i + 1,
+                }
+            })
+            .collect();
     }
 }
 
