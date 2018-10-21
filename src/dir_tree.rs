@@ -146,6 +146,5 @@ impl DirTree {
 
 fn path2name(path: &str) -> String {
     let name: Vec<&str> = path.split('/').collect();
-    let name = name.last().unwrap().to_string();
-    name
+    name.last().unwrap().to_string()
 }

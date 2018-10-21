@@ -1,7 +1,6 @@
 use clap::ArgMatches;
 use config::Config;
 use dir_tree::*;
-use std::fs::read_dir;
 
 pub fn cmd_list(matches: &ArgMatches, config: &Config) {
     // TODO Implementation of filtering by patter
