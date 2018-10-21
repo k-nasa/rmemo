@@ -43,3 +43,6 @@ impl DirTree {
         DirTree::_new(root_dir, false, Vec::new())
     }
 
+    fn _new(root_dir: &str, is_last: bool, branch: Vec<TreeBranch>) -> Self {
+    }
+}
