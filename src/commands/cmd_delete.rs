@@ -19,6 +19,12 @@ macro_rules! confirmation {
     };
 }
 
+struct FileOrDir {
+    name: String,
+    path: String,
+    is_dir: bool,
+}
+
 pub fn cmd_delete(matches: &ArgMatches, config: &Config) {
     let pattern = match matches.value_of("pattern") {
         Some(pattern) => pattern.to_string(),
