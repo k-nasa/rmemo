@@ -104,6 +104,7 @@ impl DirTree {
 
     pub fn print(self) {
         if self.tree_branches.is_empty() {
+            // this is root branch
             println!("{}", self.dir_path.yellow());
         } else {
             for branch in self.tree_branches {
