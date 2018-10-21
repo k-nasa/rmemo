@@ -51,24 +51,23 @@ pub fn cmd_delete(matches: &ArgMatches, config: &Config) {
 
     let memo_dir = config.memos_dir();
 
-    let full_path_files: Vec<String> = full_path_files(&memo_dir, &pattern);
-    let display_file_paths: Vec<String> = display_file_paths(&memo_dir, &pattern);
+    let files: Vec<FileOrDir> = files(&memo_dir, &pattern);
 
-    if display_file_paths.is_empty() {
+    if files.is_empty() {
         println!("{}", "No matched file".yellow());
         return;
     }
 
-    for file in display_file_paths {
-        println!("{}", file);
+    for file in &files {
+        file.print();
     }
 
     println!("{}", "Will delete those entry. Are you sure?".red());
     confirmation!("Are you sure?(y/n) :");
     confirmation!("Really?(y/n) :");
 
-    for file in full_path_files {
-        remove_file(file).expect("Failed remove files");
+    for file in files {
+        file.remove().expect("Faild remove file");
     }
 
     println!("{}", "All file delete".green());
