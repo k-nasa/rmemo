@@ -12,3 +12,15 @@ script:
   - cargo clippy --all-targets --all-features -- -D warnings
   - cargo test
   - cargo fmt
+before_deploy:
+  - cargo build --target $TARGET --release
+  - mkdir "rmemo-${TRAVIS_TAG}-${TARGET}"
+  - cp target/$TARGET/release/rmemo LICENSE.txt README.md "rmemo-${TRAVIS_TAG}-${TARGET}"
+  - zip "rmemo-${TRAVIS_TAG}-${TARGET}.zip" -r "rmemo-${TRAVIS_TAG}-${TARGET}"
+deploy:
+  provider: releases
+  api_key:
+  file: rmemo-${TRAVIS_TAG}-${TARGET}.zip
+  skip_cleanup: true
+  on:
+    tags: true
