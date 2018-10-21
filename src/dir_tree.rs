@@ -123,6 +123,24 @@ impl DirTree {
             println!(" {}", file.name);
         }
     }
+
+    pub fn short_print(self) {
+        println!("{}", self.dir_path.yellow());
+
+        for dir in self.dir_tree {
+            for branch in dir.tree_branches {
+                print!("{}", branch.tree_branch_string());
+            }
+            println!(" {}{}", dir.dir_name.cyan(), "/".cyan());
+        }
+
+        for file in self.files {
+            for branch in file.tree_branches {
+                print!("{}", branch.tree_branch_string());
+            }
+            println!(" {}", file.name);
+        }
+    }
 }
 
 fn path2name(path: &str) -> String {
