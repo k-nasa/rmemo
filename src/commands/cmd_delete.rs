@@ -24,6 +24,16 @@ struct FileOrDir {
     is_dir: bool,
 }
 
+impl FileOrDir {
+    pub fn print(&self) {
+        if self.is_dir {
+            println!("{}{}", self.name.cyan(), "/".cyan());
+        } else {
+            println!("{}", self.name);
+        }
+    }
+}
+
 pub fn cmd_delete(matches: &ArgMatches, config: &Config) {
     let pattern = match matches.value_of("pattern") {
         Some(pattern) => pattern.to_string(),
