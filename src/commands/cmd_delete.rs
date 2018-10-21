@@ -32,6 +32,14 @@ impl FileOrDir {
             println!("{}", self.name);
         }
     }
+
+    pub fn remove(&self) -> Result<()> {
+        if self.is_dir {
+            remove_dir_all(&self.path)
+        } else {
+            remove_file(&self.path)
+        }
+    }
 }
 
 pub fn cmd_delete(matches: &ArgMatches, config: &Config) {
