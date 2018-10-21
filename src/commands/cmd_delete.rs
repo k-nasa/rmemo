@@ -80,12 +80,9 @@ fn files(memo_dir: &str, pattern: &str) -> Vec<FileOrDir> {
             let dir_entry = dir_entry.unwrap();
             let name = dir_entry.file_name().into_string().unwrap();
             let path = dir_entry.path().to_str().unwrap().to_string();
+            let is_dir = dir_entry.file_type().unwrap().is_dir();
 
-            FileOrDir {
-                name,
-                path,
-                is_dir: dir_entry.file_type().unwrap().is_dir(),
-            }
+            FileOrDir { name, path, is_dir }
         })
         .filter(|f| f.name.contains(pattern))
         .collect()
