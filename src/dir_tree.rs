@@ -66,11 +66,17 @@ impl DirTree {
             .enumerate()
             .map(|(i, path)| {
                 let name = path2name(path);
+                let mut tree_branches = branch.clone();
+                if len == i + 1 {
+                    tree_branches.push(TreeBranch::Corner);
+                } else {
+                    tree_branches.push(TreeBranch::Edge);
+                };
 
                 File {
                     path: path.to_string(),
                     name,
-                    tree_branches: Vec::new(),
+                    tree_branches,
                     is_last: len == i + 1,
                 }
             })
@@ -80,7 +86,15 @@ impl DirTree {
         if !dirs.is_empty() {
             let len = dirs.len();
             for (i, dir) in dirs.iter().enumerate() {
-                dir_tree.push(DirTree::_new(&dir, len == i + 1, Vec::new()));
+                let mut tree_branches = branch.clone();
+
+                if len == i + 1 {
+                    tree_branches.push(TreeBranch::Blank);
+                } else {
+                    tree_branches.push(TreeBranch::Line);
+                };
+
+                dir_tree.push(DirTree::_new(&dir, len == i + 1, tree_branches));
             }
         };
 
@@ -92,7 +106,7 @@ impl DirTree {
             files,
             is_last,
             dir_path: root_dir.to_string(),
-            tree_branches: Vec::new(),
+            tree_branches: branch,
         }
     }
 }
