@@ -51,10 +51,10 @@ pub fn build_app() -> App<'static, 'static> {
                 .about("Show memos list")
                 .arg(Arg::with_name("pattern").help("Pattern search"))
                 .arg(
-                    Arg::with_name("full_path")
-                        .help("full_path")
-                        .short("f")
-                        .long("full_path"),
+                    Arg::with_name("short view")
+                        .help("Shallow the directory structure")
+                        .short("s")
+                        .long("short-view"),
                 ),
         )
         .subcommand(
