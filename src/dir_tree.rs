@@ -87,13 +87,7 @@ impl DirTree {
             let len = dirs.len();
             for (i, dir) in dirs.iter().enumerate() {
                 let mut tree_branches = branch.clone();
-
-                if len == i + 1 {
-                    tree_branches.push(TreeBranch::Blank);
-                } else {
-                    tree_branches.push(TreeBranch::Line);
-                };
-
+                tree_branches.push(TreeBranch::Line);
                 dir_tree.push(DirTree::_new(&dir, len == i + 1, tree_branches));
             }
         };
