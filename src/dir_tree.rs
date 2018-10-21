@@ -11,6 +11,14 @@ pub struct DirTree {
     is_last: bool,
 }
 
+#[derive(Debug)]
+pub struct File {
+    name: String,
+    path: String,
+    tree_branches: Vec<TreeBranch>,
+    is_last: bool,
+}
+
 #[derive(Debug, Clone)]
 pub enum TreeBranch {
     Edge,
