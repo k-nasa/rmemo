@@ -1,8 +1,7 @@
 use clap::ArgMatches;
 use colored::*;
 use config::Config;
-use std::fs::read_dir;
-use std::fs::remove_file;
+use std::fs::{read_dir, remove_dir_all, remove_file};
 use std::io::*;
 use std::string::*;
 use termion::event::{Event, Key};
