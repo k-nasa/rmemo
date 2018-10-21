@@ -1,7 +1,10 @@
 use std::fs::DirEntry;
 use std::fs::File;
 
-struct DirTree {
+#[derive(Debug)]
+pub struct DirTree {
+    dir_path: String,
+    dir_name: String,
     dir_tree: Vec<DirTree>,
     files: Vec<File>,
     tree_branches: Vec<TreeBranch>,
