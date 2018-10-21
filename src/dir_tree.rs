@@ -1,5 +1,7 @@
+use std::fs::read_dir;
 use std::fs::DirEntry;
-use std::fs::File;
+use std::fs::*;
+use std::io::Result;
 
 #[derive(Debug)]
 pub struct DirTree {
