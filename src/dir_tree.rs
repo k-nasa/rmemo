@@ -46,3 +46,9 @@ impl DirTree {
     fn _new(root_dir: &str, is_last: bool, branch: Vec<TreeBranch>) -> Self {
     }
 }
+
+fn path2name(path: &str) -> String {
+    let name: Vec<&str> = path.split('/').collect();
+    let name = name.last().unwrap().to_string();
+    name
+}
