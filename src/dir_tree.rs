@@ -46,6 +46,20 @@ impl DirTree {
     }
 
     fn _new(root_dir: &str, is_last: bool, branch: Vec<TreeBranch>) -> Self {
+        let mut file_paths: Vec<String> = Vec::new();
+        let mut dirs: Vec<String> = Vec::new();
+
+        for entry in read_dir(root_dir).unwrap() {
+            let entry = entry.unwrap();
+            let file_type = entry.file_type().unwrap();
+            if file_type.is_dir() {
+                dirs.push(entry.path().to_str().unwrap().to_string());
+            }
+            if file_type.is_file() {
+                file_paths.push(entry.path().to_str().unwrap().to_string());
+            }
+        }
+
     }
 }
 
