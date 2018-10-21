@@ -51,7 +51,7 @@ pub fn build_app() -> App<'static, 'static> {
                 .about("Show memos list")
                 .arg(Arg::with_name("pattern").help("Pattern search"))
                 .arg(
-                    Arg::with_name("short view")
+                    Arg::with_name("short-view")
                         .help("Shallow the directory structure")
                         .short("s")
                         .long("short-view"),
