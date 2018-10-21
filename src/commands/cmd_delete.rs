@@ -56,18 +56,20 @@ pub fn cmd_delete(matches: &ArgMatches, config: &Config) {
     println!("{}", "All file delete".green());
 }
 
-fn full_path_files(memo_dir: &str, pattern: &str) -> Vec<String> {
+fn files(memo_dir: &str, pattern: &str) -> Vec<FileOrDir> {
     read_dir(memo_dir)
         .unwrap()
-        .map(|dir_entry| dir_entry.unwrap().path().to_str().unwrap().to_string())
-        .filter(|c| c.contains(pattern))
-        .collect()
-}
+        .map(|dir_entry| {
+            let dir_entry = dir_entry.unwrap();
+            let name = dir_entry.file_name().into_string().unwrap();
+            let path = dir_entry.path().to_str().unwrap().to_string();
 
-fn display_file_paths(memo_dir: &str, pattern: &str) -> Vec<String> {
-    read_dir(memo_dir)
-        .unwrap()
-        .map(|dir_entry| dir_entry.unwrap().file_name().into_string().unwrap())
-        .filter(|c| c.contains(pattern))
+            FileOrDir {
+                name,
+                path,
+                is_dir: dir_entry.file_type().unwrap().is_dir(),
+            }
+        })
+        .filter(|f| f.name.contains(pattern))
         .collect()
 }
