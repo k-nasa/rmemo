@@ -75,6 +75,25 @@ impl DirTree {
                 }
             })
             .collect();
+
+        let mut dir_tree: Vec<DirTree> = Vec::new();
+        if !dirs.is_empty() {
+            let len = dirs.len();
+            for (i, dir) in dirs.iter().enumerate() {
+                dir_tree.push(DirTree::_new(&dir, len == i + 1, Vec::new()));
+            }
+        };
+
+        let dir_name = path2name(root_dir);
+
+        DirTree {
+            dir_tree,
+            dir_name,
+            files,
+            is_last,
+            dir_path: root_dir.to_string(),
+            tree_branches: Vec::new(),
+        }
     }
 }
 
