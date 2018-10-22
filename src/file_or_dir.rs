@@ -27,7 +27,12 @@ impl FileOrDir {
             remove_file(&self.path)
         }
     }
-    pub fn files(dir: &str, pattern: &str) -> FileOrDirs {
+
+    pub fn files(dir: &str) -> FileOrDirs {
+        FileOrDir::filter_files(dir, "")
+    }
+
+    pub fn filter_files(dir: &str, pattern: &str) -> FileOrDirs {
         read_dir(dir)
             .unwrap()
             .map(|dir_entry| {

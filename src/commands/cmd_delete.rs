@@ -25,8 +25,7 @@ pub fn cmd_delete(matches: &ArgMatches, config: &Config) {
     };
 
     let memo_dir = config.memos_dir();
-
-    let files: FileOrDirs = FileOrDir::files(&memo_dir, &pattern);
+    let files: FileOrDirs = FileOrDir::filter_files(&memo_dir, &pattern);
 
     if files.is_empty() {
         println!("{}", "No matched file".yellow());
