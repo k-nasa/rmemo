@@ -1,7 +1,7 @@
 use clap::ArgMatches;
 use colored::*;
 use config::Config;
-use file_or_dir::FileOrDir;
+use file_or_dir::{file_or_dirs_print, file_or_dirs_remove, FileOrDir, FileOrDirs};
 use std::io::*;
 use std::string::*;
 use termion::event::{Event, Key};
@@ -26,24 +26,20 @@ pub fn cmd_delete(matches: &ArgMatches, config: &Config) {
 
     let memo_dir = config.memos_dir();
 
-    let files: Vec<FileOrDir> = FileOrDir::files(&memo_dir, &pattern);
+    let files: FileOrDirs = FileOrDir::files(&memo_dir, &pattern);
 
     if files.is_empty() {
         println!("{}", "No matched file".yellow());
         return;
     }
 
-    for file in &files {
-        file.print();
-    }
+    file_or_dirs_print(&files);
 
     println!("{}", "Will delete those entry. Are you sure?".red());
     confirmation!("Are you sure?(y/n) :");
     confirmation!("Really?(y/n) :");
 
-    for file in files {
-        file.remove().expect("Faild remove file");
-    }
+    file_or_dirs_remove(&files);
 
     println!("{}", "All file delete".green());
 }
