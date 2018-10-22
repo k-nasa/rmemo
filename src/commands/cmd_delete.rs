@@ -1,7 +1,7 @@
 use clap::ArgMatches;
 use colored::*;
 use config::Config;
-use std::fs::{read_dir, remove_dir_all, remove_file};
+use file_or_dir::FileOrDir;
 use std::io::*;
 use std::string::*;
 use termion::event::{Event, Key};
@@ -18,31 +18,6 @@ macro_rules! confirmation {
     };
 }
 
-#[derive(Debug, Clone)]
-struct FileOrDir {
-    name: String,
-    path: String,
-    is_dir: bool,
-}
-
-impl FileOrDir {
-    pub fn print(&self) {
-        if self.is_dir {
-            println!("{}{}", self.name.cyan(), "/".cyan());
-        } else {
-            println!("{}", self.name);
-        }
-    }
-
-    pub fn remove(&self) -> Result<()> {
-        if self.is_dir {
-            remove_dir_all(&self.path)
-        } else {
-            remove_file(&self.path)
-        }
-    }
-}
-
 pub fn cmd_delete(matches: &ArgMatches, config: &Config) {
     let pattern = match matches.value_of("pattern") {
         Some(pattern) => pattern.to_string(),
@@ -51,7 +26,7 @@ pub fn cmd_delete(matches: &ArgMatches, config: &Config) {
 
     let memo_dir = config.memos_dir();
 
-    let files: Vec<FileOrDir> = files(&memo_dir, &pattern);
+    let files: Vec<FileOrDir> = FileOrDir::files(&memo_dir, &pattern);
 
     if files.is_empty() {
         println!("{}", "No matched file".yellow());
@@ -71,19 +46,4 @@ pub fn cmd_delete(matches: &ArgMatches, config: &Config) {
     }
 
     println!("{}", "All file delete".green());
-}
-
-fn files(memo_dir: &str, pattern: &str) -> Vec<FileOrDir> {
-    read_dir(memo_dir)
-        .unwrap()
-        .map(|dir_entry| {
-            let dir_entry = dir_entry.unwrap();
-            let name = dir_entry.file_name().into_string().unwrap();
-            let path = dir_entry.path().to_str().unwrap().to_string();
-            let is_dir = dir_entry.file_type().unwrap().is_dir();
-
-            FileOrDir { name, path, is_dir }
-        })
-        .filter(|f| f.name.contains(pattern))
-        .collect()
 }
