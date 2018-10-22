@@ -1,9 +1,8 @@
 use clap::ArgMatches;
 use colored::*;
 use config::Config;
-use std::fs::read_dir;
+use file_or_dir::{file_paths, FileOrDir, FileOrDirs};
 use std::process::Command;
-use std::string::*;
 
 pub fn cmd_grep(matches: &ArgMatches, config: &Config) {
     let argument = match matches.value_of("argument") {
@@ -15,11 +14,7 @@ pub fn cmd_grep(matches: &ArgMatches, config: &Config) {
     };
 
     let memo_dir = config.memos_dir();
-
-    let files: Vec<String> = read_dir(memo_dir)
-        .unwrap()
-        .map(|dir_entry| dir_entry.unwrap().path().to_str().unwrap().to_string())
-        .collect();
+    let files: FileOrDirs = FileOrDir::files(&memo_dir);
 
     if files.is_empty() {
         println!("{}", "file is nothing".yellow());
@@ -28,7 +23,7 @@ pub fn cmd_grep(matches: &ArgMatches, config: &Config) {
 
     let mut grep_process = Command::new(config.grep_command())
         .arg(argument)
-        .args(files)
+        .args(file_paths(&files))
         .spawn()
         .expect("faild run grep command");
 
