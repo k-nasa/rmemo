@@ -9,6 +9,8 @@ pub struct FileOrDir {
     is_dir: bool,
 }
 
+pub type FileOrDirs = Vec<FileOrDir>;
+
 impl FileOrDir {
     pub fn print(&self) {
         if self.is_dir {
@@ -25,7 +27,7 @@ impl FileOrDir {
             remove_file(&self.path)
         }
     }
-    pub fn files(dir: &str, pattern: &str) -> Vec<FileOrDir> {
+    pub fn files(dir: &str, pattern: &str) -> FileOrDirs {
         read_dir(dir)
             .unwrap()
             .map(|dir_entry| {
@@ -38,5 +40,17 @@ impl FileOrDir {
             })
             .filter(|f| f.name.contains(pattern))
             .collect()
+    }
+}
+
+pub fn file_or_dirs_print(file_or_dirs: &FileOrDirs) {
+    for file in file_or_dirs {
+        file.print();
+    }
+}
+
+pub fn file_or_dirs_remove(file_or_dirs: &FileOrDirs) {
+    for file in file_or_dirs {
+        file.remove().expect("Faild remove file");
     }
 }
