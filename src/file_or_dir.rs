@@ -48,14 +48,24 @@ impl FileOrDir {
     }
 }
 
-pub fn file_or_dirs_print(file_or_dirs: &FileOrDirs) {
+pub fn file_or_dirs_print(file_or_dirs: &[FileOrDir]) {
     for file in file_or_dirs {
         file.print();
     }
 }
 
-pub fn file_or_dirs_remove(file_or_dirs: &FileOrDirs) {
+pub fn file_or_dirs_remove(file_or_dirs: &[FileOrDir]) {
     for file in file_or_dirs {
         file.remove().expect("Faild remove file");
     }
+}
+
+pub fn file_names(file_or_dirs: &[FileOrDir]) -> Vec<String> {
+    //FIXME clone to ref
+    file_or_dirs.iter().map(|f| f.name.clone()).collect()
+}
+
+pub fn file_paths(file_or_dirs: &[FileOrDir]) -> Vec<String> {
+    //FIXME clone to ref
+    file_or_dirs.iter().map(|f| f.path.clone()).collect()
 }
