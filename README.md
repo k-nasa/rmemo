@@ -21,10 +21,6 @@ cargo install rmemo
 
 ## Usage
 ```
-rmemo 0.1.6
-k-nasa <htilcs1115@gmail.com>
-Tools for taking notes fast on the CLI
-
 USAGE:
     rmemo [SUBCOMMAND]
 
