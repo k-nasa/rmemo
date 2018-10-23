@@ -16,6 +16,22 @@ impl PartialEq for FileOrDir {
     }
 }
 
+impl PartialOrd for FileOrDir {
+    fn partial_cmp(&self, other: &FileOrDir) -> Option<Ordering> {
+        Some(self.cmp(other))
+    }
+}
+
+impl Ord for FileOrDir {
+    fn cmp(&self, other: &FileOrDir) -> Ordering {
+        match self.is_dir.cmp(&other.is_dir) {
+            Ordering::Equal => self.name.cmp(&other.name),
+            Ordering::Greater => Ordering::Greater,
+            Ordering::Less => Ordering::Less,
+        }
+    }
+}
+
 pub type FileOrDirs = Vec<FileOrDir>;
 
 impl FileOrDir {
