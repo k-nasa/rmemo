@@ -56,7 +56,7 @@ impl FileOrDir {
     }
 
     pub fn filter_files(dir: &str, pattern: &str) -> FileOrDirs {
-        read_dir(dir)
+        let mut files: FileOrDirs = read_dir(dir)
             .unwrap()
             .map(|dir_entry| {
                 let dir_entry = dir_entry.unwrap();
@@ -67,7 +67,10 @@ impl FileOrDir {
                 FileOrDir { name, path, is_dir }
             })
             .filter(|f| f.name.contains(pattern))
-            .collect()
+            .collect::<FileOrDirs>();
+
+        files.sort();
+        files
     }
 }
 
