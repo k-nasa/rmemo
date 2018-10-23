@@ -1,12 +1,19 @@
 use colored::*;
+use std::cmp::Ordering;
 use std::fs::{read_dir, remove_dir_all, remove_file};
 use std::io::Result;
 
-#[derive(Debug, Clone)]
+#[derive(Debug, Clone, Eq)]
 pub struct FileOrDir {
     name: String,
     path: String,
     is_dir: bool,
+}
+
+impl PartialEq for FileOrDir {
+    fn eq(&self, other: &FileOrDir) -> bool {
+        self.path == other.path
+    }
 }
 
 pub type FileOrDirs = Vec<FileOrDir>;
