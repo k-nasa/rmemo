@@ -1,4 +1,5 @@
 use colored::*;
+use std::cmp::Ordering;
 use std::fs::read_dir;
 
 #[derive(Debug)]
@@ -11,7 +12,7 @@ pub struct DirTree {
     is_last: bool,
 }
 
-#[derive(Debug)]
+#[derive(Debug, Eq)]
 pub struct File {
     name: String,
     path: String,
@@ -19,7 +20,7 @@ pub struct File {
     is_last: bool,
 }
 
-#[derive(Debug, Clone)]
+#[derive(Debug, Clone, Eq)]
 pub enum TreeBranch {
     Edge,
     Line,
@@ -59,7 +60,8 @@ impl DirTree {
         }
 
         let len = file_paths.len();
-        // TODO sort file
+
+        file_paths.sort();
         let files: Vec<File> = file_paths
             .iter()
             .enumerate()
@@ -148,4 +150,30 @@ impl DirTree {
 fn path2name(path: &str) -> String {
     let name: Vec<&str> = path.split('/').collect();
     name.last().unwrap().to_string()
+}
+
+impl PartialEq for File {
+    fn eq(&self, other: &File) -> bool {
+        self.path == other.path
+    }
+}
+
+impl PartialOrd for File {
+    fn partial_cmp(&self, other: &File) -> Option<Ordering> {
+        Some(self.cmp(other))
+    }
+}
+
+impl Ord for File {
+    fn cmp(&self, other: &File) -> Ordering {
+        self.name.cmp(&other.name)
+    }
+}
+
+impl PartialEq for TreeBranch {
+    fn eq(&self, other: &TreeBranch) -> bool {
+        match (self, other) {
+            _ => false,
+        }
+    }
 }

@@ -1,8 +1,9 @@
 use colored::*;
+use std::cmp::Ordering;
 use std::fs::{read_dir, remove_dir_all, remove_file};
 use std::io::Result;
 
-#[derive(Debug, Clone)]
+#[derive(Debug, Clone, Eq)]
 pub struct FileOrDir {
     name: String,
     path: String,
@@ -33,7 +34,7 @@ impl FileOrDir {
     }
 
     pub fn filter_files(dir: &str, pattern: &str) -> FileOrDirs {
-        read_dir(dir)
+        let mut files: FileOrDirs = read_dir(dir)
             .unwrap()
             .map(|dir_entry| {
                 let dir_entry = dir_entry.unwrap();
@@ -44,7 +45,10 @@ impl FileOrDir {
                 FileOrDir { name, path, is_dir }
             })
             .filter(|f| f.name.contains(pattern))
-            .collect()
+            .collect::<FileOrDirs>();
+
+        files.sort();
+        files
     }
 }
 
@@ -68,4 +72,26 @@ pub fn file_names(file_or_dirs: &[FileOrDir]) -> Vec<String> {
 pub fn file_paths(file_or_dirs: &[FileOrDir]) -> Vec<String> {
     //FIXME clone to ref
     file_or_dirs.iter().map(|f| f.path.clone()).collect()
+}
+
+impl PartialEq for FileOrDir {
+    fn eq(&self, other: &FileOrDir) -> bool {
+        self.path == other.path
+    }
+}
+
+impl PartialOrd for FileOrDir {
+    fn partial_cmp(&self, other: &FileOrDir) -> Option<Ordering> {
+        Some(self.cmp(other))
+    }
+}
+
+impl Ord for FileOrDir {
+    fn cmp(&self, other: &FileOrDir) -> Ordering {
+        match self.is_dir.cmp(&other.is_dir) {
+            Ordering::Equal => self.name.cmp(&other.name),
+            Ordering::Greater => Ordering::Greater,
+            Ordering::Less => Ordering::Less,
+        }
+    }
 }
