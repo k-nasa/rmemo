@@ -1,4 +1,5 @@
 use colored::*;
+use std::cmp::Ordering;
 use std::fs::read_dir;
 
 #[derive(Debug)]
@@ -11,7 +12,7 @@ pub struct DirTree {
     is_last: bool,
 }
 
-#[derive(Debug)]
+#[derive(Debug, Eq)]
 pub struct File {
     name: String,
     path: String,
@@ -19,7 +20,11 @@ pub struct File {
     is_last: bool,
 }
 
-#[derive(Debug, Clone)]
+impl PartialEq for File {
+    fn eq(&self, other: &File) -> bool {
+        self.path == other.path
+    }
+}
 pub enum TreeBranch {
     Edge,
     Line,
