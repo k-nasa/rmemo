@@ -20,38 +20,12 @@ pub struct File {
     is_last: bool,
 }
 
-impl PartialEq for File {
-    fn eq(&self, other: &File) -> bool {
-        self.path == other.path
-    }
-}
-
-impl PartialOrd for File {
-    fn partial_cmp(&self, other: &File) -> Option<Ordering> {
-        Some(self.cmp(other))
-    }
-}
-
-impl Ord for File {
-    fn cmp(&self, other: &File) -> Ordering {
-        self.name.cmp(&other.name)
-    }
-}
-
 #[derive(Debug, Clone, Eq)]
 pub enum TreeBranch {
     Edge,
     Line,
     Corner,
     Blank,
-}
-
-impl PartialEq for TreeBranch {
-    fn eq(&self, other: &TreeBranch) -> bool {
-        match (self, other) {
-            _ => false,
-        }
-    }
 }
 
 impl TreeBranch {
@@ -176,4 +150,30 @@ impl DirTree {
 fn path2name(path: &str) -> String {
     let name: Vec<&str> = path.split('/').collect();
     name.last().unwrap().to_string()
+}
+
+impl PartialEq for File {
+    fn eq(&self, other: &File) -> bool {
+        self.path == other.path
+    }
+}
+
+impl PartialOrd for File {
+    fn partial_cmp(&self, other: &File) -> Option<Ordering> {
+        Some(self.cmp(other))
+    }
+}
+
+impl Ord for File {
+    fn cmp(&self, other: &File) -> Ordering {
+        self.name.cmp(&other.name)
+    }
+}
+
+impl PartialEq for TreeBranch {
+    fn eq(&self, other: &TreeBranch) -> bool {
+        match (self, other) {
+            _ => false,
+        }
+    }
 }
