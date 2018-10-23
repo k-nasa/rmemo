@@ -25,6 +25,13 @@ impl PartialEq for File {
         self.path == other.path
     }
 }
+
+impl PartialOrd for File {
+    fn partial_cmp(&self, other: &File) -> Option<Ordering> {
+        Some(self.cmp(other))
+    }
+}
+
 pub enum TreeBranch {
     Edge,
     Line,
