@@ -27,7 +27,13 @@ pub fn build_app() -> App<'static, 'static> {
             SubCommand::with_name("delete")
                 .alias("d")
                 .about("Delete memos")
-                .arg(Arg::with_name("pattern").help("Pattern search")),
+                .arg(Arg::with_name("pattern").help("Pattern search"))
+                .arg(
+                    Arg::with_name("pick")
+                        .help("Pick and delete")
+                        .short("p")
+                        .long("pick"),
+                ),
         )
         .subcommand(
             SubCommand::with_name("edit")

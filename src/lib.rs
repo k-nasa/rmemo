@@ -9,6 +9,7 @@ extern crate clap;
 #[macro_use]
 extern crate serde_derive;
 extern crate colored;
+extern crate dialoguer;
 extern crate termion;
 
 use commands::build_app;
