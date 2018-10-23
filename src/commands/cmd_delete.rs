@@ -40,7 +40,7 @@ pub fn cmd_delete(matches: &ArgMatches, config: &Config) {
     }
 }
 
-fn pick_file_delete(files: &FileOrDirs) {
+fn pick_file_delete(files: &[FileOrDir]) {
     let selections = file_names(files);
     let selections: Vec<&str> = selections.iter().map(|name| name.as_str()).collect();
     let selections = selections.as_slice();
@@ -57,7 +57,7 @@ fn pick_file_delete(files: &FileOrDirs) {
     };
 }
 
-fn all_files_delete(files: &FileOrDirs) {
+fn all_files_delete(files: &[FileOrDir]) {
     file_or_dirs_print(&files);
 
     println!("{}", "Will delete those entry. Are you sure?".red());
