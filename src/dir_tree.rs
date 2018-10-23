@@ -46,6 +46,14 @@ pub enum TreeBranch {
     Blank,
 }
 
+impl PartialEq for TreeBranch {
+    fn eq(&self, other: &TreeBranch) -> bool {
+        match (self, other) {
+            _ => false,
+        }
+    }
+}
+
 impl TreeBranch {
     pub fn tree_branch_string(&self) -> &'static str {
         match *self {
