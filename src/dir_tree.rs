@@ -86,7 +86,8 @@ impl DirTree {
         }
 
         let len = file_paths.len();
-        // TODO sort file
+
+        file_paths.sort();
         let files: Vec<File> = file_paths
             .iter()
             .enumerate()
