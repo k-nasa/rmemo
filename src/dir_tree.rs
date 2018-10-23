@@ -32,6 +32,13 @@ impl PartialOrd for File {
     }
 }
 
+impl Ord for File {
+    fn cmp(&self, other: &File) -> Ordering {
+        self.name.cmp(&other.name)
+    }
+}
+
+#[derive(Debug, Clone, Eq)]
 pub enum TreeBranch {
     Edge,
     Line,
