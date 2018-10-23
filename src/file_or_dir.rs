@@ -10,28 +10,6 @@ pub struct FileOrDir {
     is_dir: bool,
 }
 
-impl PartialEq for FileOrDir {
-    fn eq(&self, other: &FileOrDir) -> bool {
-        self.path == other.path
-    }
-}
-
-impl PartialOrd for FileOrDir {
-    fn partial_cmp(&self, other: &FileOrDir) -> Option<Ordering> {
-        Some(self.cmp(other))
-    }
-}
-
-impl Ord for FileOrDir {
-    fn cmp(&self, other: &FileOrDir) -> Ordering {
-        match self.is_dir.cmp(&other.is_dir) {
-            Ordering::Equal => self.name.cmp(&other.name),
-            Ordering::Greater => Ordering::Greater,
-            Ordering::Less => Ordering::Less,
-        }
-    }
-}
-
 pub type FileOrDirs = Vec<FileOrDir>;
 
 impl FileOrDir {
@@ -94,4 +72,26 @@ pub fn file_names(file_or_dirs: &[FileOrDir]) -> Vec<String> {
 pub fn file_paths(file_or_dirs: &[FileOrDir]) -> Vec<String> {
     //FIXME clone to ref
     file_or_dirs.iter().map(|f| f.path.clone()).collect()
+}
+
+impl PartialEq for FileOrDir {
+    fn eq(&self, other: &FileOrDir) -> bool {
+        self.path == other.path
+    }
+}
+
+impl PartialOrd for FileOrDir {
+    fn partial_cmp(&self, other: &FileOrDir) -> Option<Ordering> {
+        Some(self.cmp(other))
+    }
+}
+
+impl Ord for FileOrDir {
+    fn cmp(&self, other: &FileOrDir) -> Ordering {
+        match self.is_dir.cmp(&other.is_dir) {
+            Ordering::Equal => self.name.cmp(&other.name),
+            Ordering::Greater => Ordering::Greater,
+            Ordering::Less => Ordering::Less,
+        }
+    }
 }
