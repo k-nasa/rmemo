@@ -4,7 +4,7 @@
 # rmemo
 rmemo is tool for taking notes fast on the command line
 
-![demo](https://github.com/k-nasa/rmemo/blob/master/media/demo.gif)
+[![demo](https://asciinema.org/a/F65yWTfdnMyNgiyFhLjGO3mRZ.png)](https://asciinema.org/a/F65yWTfdnMyNgiyFhLjGO3mRZ)
 
 ## Installation
 ### On macOS
