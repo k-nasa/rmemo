@@ -5,6 +5,7 @@ use clap::ArgMatches;
 use colored::*;
 use config::Config;
 use std::fs::{copy, create_dir_all};
+use std::io::Write;
 use std::string::*;
 use utils;
 
@@ -12,7 +13,8 @@ pub fn cmd_new(matches: &ArgMatches, config: &Config) {
     let input_filepath = match matches.value_of("title") {
         Some(title) => title.to_string(),
         None => {
-            println!("Input title :");
+            print!("Input title :");
+            std::io::stdout().flush().expect("print! is faild");
             utils::read()
         }
     };
