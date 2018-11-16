@@ -8,7 +8,7 @@ pub fn cmd_list(matches: &ArgMatches, config: &Config) {
     //     Some(pattern) => pattern.to_string(),
     //     None => String::new(),
     // };
-    //
+
     let is_short_view = matches.is_present("short-view");
 
     let memo_dir = config.memos_dir();
