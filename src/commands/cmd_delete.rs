@@ -10,7 +10,9 @@ use termion::input::TermRead;
 
 macro_rules! confirmation {
     ($question_string:expr) => {
-        println!("{}", $question_string);
+        print!("{}", $question_string);
+        std::io::stdout().flush().expect("print! is faild");
+
         match stdin().events().nth(0).unwrap().unwrap() {
             Event::Key(Key::Char('y')) => (),
             Event::Key(Key::Char('Y')) => (),
