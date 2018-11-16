@@ -9,12 +9,10 @@ pub fn cmd_list(matches: &ArgMatches, config: &Config) {
     //     None => String::new(),
     // };
 
-    let is_short_view = matches.is_present("short-view");
-
     let memo_dir = config.memos_dir();
-
     let dir_tree = DirTree::new(memo_dir);
-    if is_short_view {
+
+    if matches.is_present("short-view") {
         dir_tree.short_print();
     } else {
         dir_tree.print();
