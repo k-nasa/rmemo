@@ -1,8 +1,8 @@
 use clap::ArgMatches;
 use colored::*;
-use config::Config;
+use crate::config::Config;
 use dialoguer::Select;
-use file_or_dir::{file_names, file_or_dirs_print, file_or_dirs_remove, FileOrDir, FileOrDirs};
+use crate::file_or_dir::{file_names, file_or_dirs_print, file_or_dirs_remove, FileOrDir, FileOrDirs};
 use std::io::*;
 use std::string::*;
 use termion::event::{Event, Key};

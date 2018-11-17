@@ -8,7 +8,7 @@ use std::io::prelude::*;
 use std::io::Result;
 use std::path::*;
 use std::str::from_utf8;
-use utils::home_dir_string;
+use crate::utils::home_dir_string;
 
 #[derive(Deserialize, Serialize, Debug)]
 /// Structure that loads setting information from file and mapping

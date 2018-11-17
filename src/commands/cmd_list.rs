@@ -1,6 +1,6 @@
 use clap::ArgMatches;
-use config::Config;
-use dir_tree::*;
+use crate::config::Config;
+use crate::dir_tree::*;
 
 pub fn cmd_list(matches: &ArgMatches, config: &Config) {
     // TODO Implementation of filtering by patter
