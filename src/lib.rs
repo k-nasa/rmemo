@@ -8,19 +8,13 @@ pub mod utils;
 extern crate clap;
 #[macro_use]
 extern crate serde_derive;
-extern crate colored;
-extern crate dialoguer;
-extern crate termion;
 
-use commands::build_app;
-use commands::cmd_config::cmd_config;
-use commands::cmd_delete::cmd_delete;
-use commands::cmd_edit::cmd_edit;
-use commands::cmd_grep::cmd_grep;
-use commands::cmd_list::cmd_list;
-use commands::cmd_new::cmd_new;
-use commands::cmd_quick::cmd_quick;
-use config::Config;
+use crate::commands::{
+    build_app, cmd_config::cmd_config, cmd_delete::cmd_delete, cmd_edit::cmd_edit,
+    cmd_grep::cmd_grep, cmd_list::cmd_list, cmd_new::cmd_new, cmd_quick::cmd_quick,
+};
+
+use crate::config::Config;
 use std::fs::create_dir_all;
 
 pub fn run() {

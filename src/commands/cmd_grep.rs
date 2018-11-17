@@ -1,7 +1,7 @@
 use clap::ArgMatches;
 use colored::*;
-use config::Config;
-use file_or_dir::{file_paths, FileOrDir, FileOrDirs};
+use crate::config::Config;
+use crate::file_or_dir::{file_paths, FileOrDir, FileOrDirs};
 use std::process::Command;
 
 pub fn cmd_grep(matches: &ArgMatches, config: &Config) {

@@ -1,7 +1,5 @@
-extern crate dirs;
-
 use super::run_editor;
-use config::Config;
+use crate::config::Config;
 use std::path::Path;
 
 pub fn cmd_config(config: &Config) {

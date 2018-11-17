@@ -1,6 +1,6 @@
 use super::{run_editor, run_selector};
 use clap::ArgMatches;
-use config::Config;
+use crate::config::Config;
 
 pub fn cmd_edit(matches: &ArgMatches, config: &Config) {
     let mut title = match matches.value_of("title") {
