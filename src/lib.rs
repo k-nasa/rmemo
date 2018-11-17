@@ -9,14 +9,11 @@ extern crate clap;
 #[macro_use]
 extern crate serde_derive;
 
-use crate::commands::build_app;
-use crate::commands::cmd_config::cmd_config;
-use crate::commands::cmd_delete::cmd_delete;
-use crate::commands::cmd_edit::cmd_edit;
-use crate::commands::cmd_grep::cmd_grep;
-use crate::commands::cmd_list::cmd_list;
-use crate::commands::cmd_new::cmd_new;
-use crate::commands::cmd_quick::cmd_quick;
+use crate::commands::{
+    build_app, cmd_config::cmd_config, cmd_delete::cmd_delete, cmd_edit::cmd_edit,
+    cmd_grep::cmd_grep, cmd_list::cmd_list, cmd_new::cmd_new, cmd_quick::cmd_quick,
+};
+
 use crate::config::Config;
 use std::fs::create_dir_all;
 
