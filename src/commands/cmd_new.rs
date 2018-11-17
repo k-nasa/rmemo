@@ -1,13 +1,11 @@
-extern crate chrono;
-
 use super::run_editor;
 use clap::ArgMatches;
 use colored::*;
 use crate::config::Config;
+use crate::utils;
 use std::fs::{copy, create_dir_all};
 use std::io::Write;
 use std::string::*;
-use crate::utils;
 
 pub fn cmd_new(matches: &ArgMatches, config: &Config) {
     let input_filepath = match matches.value_of("title") {

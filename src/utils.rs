@@ -1,5 +1,3 @@
-extern crate dirs;
-
 use std::io::*;
 use std::str::FromStr;
 

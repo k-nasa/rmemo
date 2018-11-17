@@ -1,5 +1,3 @@
-extern crate dirs;
-
 use super::run_editor;
 use crate::config::Config;
 use std::path::Path;

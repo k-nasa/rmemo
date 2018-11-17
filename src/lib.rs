@@ -8,9 +8,6 @@ pub mod utils;
 extern crate clap;
 #[macro_use]
 extern crate serde_derive;
-extern crate colored;
-extern crate dialoguer;
-extern crate termion;
 
 use crate::commands::build_app;
 use crate::commands::cmd_config::cmd_config;
