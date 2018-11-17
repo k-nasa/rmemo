@@ -1,10 +1,10 @@
 os: osx
 language: rust
 rust:
-  - stable
+  # stable is unsupport 2018 edition
+  # - stable
   - beta
-  # clippy unsupport nightly
-  # - nightly
+  - nightly
 before_script:
   - rustup component add clippy-preview
   - rustup component add rustfmt-preview
