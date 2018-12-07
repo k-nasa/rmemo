@@ -1,12 +1,15 @@
+use crate::config::Config;
+use crate::file_or_dir::{
+    file_names, file_or_dirs_print, file_or_dirs_remove, FileOrDir, FileOrDirs,
+};
 use clap::ArgMatches;
 use colored::*;
-use crate::config::Config;
 use dialoguer::Select;
-use crate::file_or_dir::{file_names, file_or_dirs_print, file_or_dirs_remove, FileOrDir, FileOrDirs};
-use std::io::*;
-use std::string::*;
-use termion::event::{Event, Key};
-use termion::input::TermRead;
+use std::{io::*, string::*};
+use termion::{
+    event::{Event, Key},
+    input::TermRead,
+};
 
 macro_rules! confirmation {
     ($question_string:expr) => {
