@@ -44,9 +44,6 @@ pub fn run() {
 
         ("quick", Some(matches)) => cmd_quick(matches, &config),
 
-        _ => {
-            app.print_long_help().ok();
-            return;
-        }
+        _ => app.print_help().expect("faild print help"),
     };
 }
