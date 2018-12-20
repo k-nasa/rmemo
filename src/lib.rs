@@ -26,10 +26,11 @@ pub fn run() {
             return;
         }
     };
+
     let memo_dir = config.memos_dir();
     create_dir_all(memo_dir).expect("faild create memos_dir");
 
-    match app.clone().get_matches().subcommand() {
+    match build_app().get_matches().subcommand() {
         ("config", Some(_)) => cmd_config(&config),
 
         ("delete", Some(matches)) => cmd_delete(matches, &config),

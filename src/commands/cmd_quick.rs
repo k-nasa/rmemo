@@ -1,7 +1,7 @@
 use super::run_editor;
+use crate::config::Config;
 use clap::ArgMatches;
 use colored::*;
-use crate::config::Config;
 use std::fs::OpenOptions;
 use std::io::prelude::*;
 
