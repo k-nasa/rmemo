@@ -1,7 +1,7 @@
 use crate::utils::home_dir_string;
+use failure::Error;
 use std::fs::*;
 use std::io::prelude::*;
-use std::io::Result;
 use std::path::*;
 use std::str::from_utf8;
 
@@ -19,29 +19,21 @@ pub struct Config {
 impl Config {
     /// Read the file in which the setting file is described.
     /// If not, create it
-    pub fn load_config() -> Result<Config> {
-        let mut file = Config::load_or_create_config_file();
+    pub fn load_config() -> Result<Config, Error> {
+        let mut file = Config::load_or_create_config_file()?;
 
         let mut buf = vec![];
         file.read_to_end(&mut buf)?;
-        let toml_str = match from_utf8(&buf) {
-            Ok(toml_str) => toml_str,
-            Err(e) => panic!(e),
-        };
+        let toml_str = from_utf8(&buf)?;
 
         let config: Config = if toml_str.is_empty() {
             let config = Config::default();
             let toml_str = toml::to_string(&config).unwrap();
+            file.write_all(toml_str.as_bytes())?;
 
-            match file.write_all(toml_str.as_bytes()) {
-                Ok(_) => config,
-                Err(e) => panic!(e),
-            }
+            config
         } else {
-            match toml::from_str(toml_str) {
-                Ok(config) => config,
-                _ => panic!("Analysis of configuration file failed"),
-            }
+            toml::from_str(toml_str)?
         };
 
         Ok(config)
@@ -49,30 +41,25 @@ impl Config {
 
     ///Get the file pointer of the setting file.
     ///When there is no file, a setting file is created.
-    pub fn load_or_create_config_file() -> File {
+    pub fn load_or_create_config_file() -> Result<File, Error> {
         //FIXME Not compatible with windows
         let dir = match dirs::home_dir() {
             Some(dir) => Path::new(&dir.to_str().unwrap().to_string()).join(".config/rmemo/"),
             None => panic!("faild fetch home_dir name"),
         };
 
-        DirBuilder::new()
-            .recursive(true)
-            .create(dir.clone())
-            .unwrap();
+        DirBuilder::new().recursive(true).create(dir.clone())?;
 
         let filepath = &dir.join("config.toml");
 
-        match OpenOptions::new()
+        let file = OpenOptions::new()
             .create(true)
             .write(true)
             .append(true)
             .read(true)
-            .open(filepath)
-        {
-            Ok(file) => file,
-            Err(e) => panic!(e),
-        }
+            .open(filepath)?;
+
+        Ok(file)
     }
 
     /// Unwrap and return the memo_dir property

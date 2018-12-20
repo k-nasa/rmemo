@@ -65,12 +65,10 @@ pub fn file_or_dirs_remove(file_or_dirs: &[FileOrDir]) {
 }
 
 pub fn file_names(file_or_dirs: &[FileOrDir]) -> Vec<String> {
-    //FIXME clone to ref
     file_or_dirs.iter().map(|f| f.name.clone()).collect()
 }
 
 pub fn file_paths(file_or_dirs: &[FileOrDir]) -> Vec<String> {
-    //FIXME clone to ref
     file_or_dirs.iter().map(|f| f.path.clone()).collect()
 }
 
