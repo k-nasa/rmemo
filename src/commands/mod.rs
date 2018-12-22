@@ -17,6 +17,7 @@ pub fn build_app() -> App<'static, 'static> {
         .author(crate_authors!())
         .about(crate_description!())
         .setting(AppSettings::DeriveDisplayOrder)
+        .setting(AppSettings::ColoredHelp)
         .subcommand(SubCommand::with_name("help").alias("h").about("help"))
         .subcommand(
             SubCommand::with_name("config")
