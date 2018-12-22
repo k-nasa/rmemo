@@ -3,12 +3,12 @@ use std::process::{Command, Stdio};
 use std::str::from_utf8;
 use std::string::*;
 
-pub mod cmd_config;
-pub mod cmd_delete;
-pub mod cmd_edit;
-pub mod cmd_grep;
-pub mod cmd_list;
-pub mod cmd_new;
+pub mod config;
+pub mod delete;
+pub mod edit;
+pub mod grep;
+pub mod list;
+pub mod new;
 
 pub fn build_app() -> App<'static, 'static> {
     App::new(crate_name!())
@@ -17,12 +17,12 @@ pub fn build_app() -> App<'static, 'static> {
         .about(crate_description!())
         .setting(AppSettings::DeriveDisplayOrder)
         .setting(AppSettings::ColoredHelp)
-        .subcommand(cmd_config::make_subcommand())
-        .subcommand(cmd_delete::make_subcommand())
-        .subcommand(cmd_edit::make_subcommand())
-        .subcommand(cmd_grep::make_subcommand())
-        .subcommand(cmd_list::make_subcommand())
-        .subcommand(cmd_new::make_subcommand())
+        .subcommand(config::make_subcommand())
+        .subcommand(delete::make_subcommand())
+        .subcommand(edit::make_subcommand())
+        .subcommand(grep::make_subcommand())
+        .subcommand(list::make_subcommand())
+        .subcommand(new::make_subcommand())
 }
 
 fn run_editor(editor: &str, filepath: &str) {
