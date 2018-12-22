@@ -1,6 +1,7 @@
 use super::{run_editor, run_selector};
-use clap::ArgMatches;
 use crate::config::Config;
+use clap::ArgMatches;
+use clap::{App, Arg, SubCommand};
 
 pub fn cmd_edit(matches: &ArgMatches, config: &Config) {
     let mut title = match matches.value_of("title") {
@@ -24,4 +25,11 @@ pub fn cmd_edit(matches: &ArgMatches, config: &Config) {
     let filepath = format!("{}/{}", dir, title);
 
     run_editor(editor, &filepath);
+}
+
+pub fn make_subcommand() -> App<'static, 'static> {
+    SubCommand::with_name("edit")
+        .alias("e")
+        .about("Edit memo")
+        .arg(Arg::with_name("title").help("edit file title"))
 }

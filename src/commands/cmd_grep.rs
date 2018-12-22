@@ -1,7 +1,8 @@
-use clap::ArgMatches;
-use colored::*;
 use crate::config::Config;
 use crate::file_or_dir::{file_paths, FileOrDir, FileOrDirs};
+use clap::ArgMatches;
+use clap::{App, Arg, SubCommand};
+use colored::*;
 use std::process::Command;
 
 pub fn cmd_grep(matches: &ArgMatches, config: &Config) {
@@ -28,4 +29,15 @@ pub fn cmd_grep(matches: &ArgMatches, config: &Config) {
         .expect("faild run grep command");
 
     grep_process.wait().expect("failed to run");
+}
+
+pub fn make_subcommand() -> App<'static, 'static> {
+    SubCommand::with_name("grep")
+        .alias("g")
+        .about("Grep memos")
+        .arg(
+            Arg::with_name("argument")
+                .help("Grep command argument")
+                .required(true),
+        )
 }
