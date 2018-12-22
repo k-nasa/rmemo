@@ -1,4 +1,4 @@
-use clap::{App, AppSettings, SubCommand};
+use clap::{App, AppSettings};
 use std::process::{Command, Stdio};
 use std::str::from_utf8;
 use std::string::*;
@@ -17,7 +17,6 @@ pub fn build_app() -> App<'static, 'static> {
         .about(crate_description!())
         .setting(AppSettings::DeriveDisplayOrder)
         .setting(AppSettings::ColoredHelp)
-        .subcommand(SubCommand::with_name("help").alias("h").about("help"))
         .subcommand(cmd_config::make_subcommand())
         .subcommand(cmd_delete::make_subcommand())
         .subcommand(cmd_edit::make_subcommand())
