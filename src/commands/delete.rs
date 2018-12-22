@@ -3,6 +3,7 @@ use crate::file_or_dir::{
     file_names, file_or_dirs_print, file_or_dirs_remove, FileOrDir, FileOrDirs,
 };
 use clap::ArgMatches;
+use clap::{App, Arg, SubCommand};
 use colored::*;
 use dialoguer::Select;
 use std::{io::*, string::*};
@@ -72,4 +73,17 @@ fn all_files_delete(files: &[FileOrDir]) {
     file_or_dirs_remove(&files);
 
     println!("{}", "All file delete".green());
+}
+
+pub fn make_subcommand() -> App<'static, 'static> {
+    SubCommand::with_name("delete")
+        .alias("d")
+        .about("Delete memos")
+        .arg(Arg::with_name("pattern").help("Pattern search"))
+        .arg(
+            Arg::with_name("pick")
+                .help("Pick and delete")
+                .short("p")
+                .long("pick"),
+        )
 }

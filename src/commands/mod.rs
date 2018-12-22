@@ -1,15 +1,14 @@
-use clap::{App, AppSettings, Arg, SubCommand};
+use clap::{App, AppSettings};
 use std::process::{Command, Stdio};
 use std::str::from_utf8;
 use std::string::*;
 
-pub mod cmd_config;
-pub mod cmd_delete;
-pub mod cmd_edit;
-pub mod cmd_grep;
-pub mod cmd_list;
-pub mod cmd_new;
-pub mod cmd_quick;
+pub mod config;
+pub mod delete;
+pub mod edit;
+pub mod grep;
+pub mod list;
+pub mod new;
 
 pub fn build_app() -> App<'static, 'static> {
     App::new(crate_name!())
@@ -18,70 +17,12 @@ pub fn build_app() -> App<'static, 'static> {
         .about(crate_description!())
         .setting(AppSettings::DeriveDisplayOrder)
         .setting(AppSettings::ColoredHelp)
-        .subcommand(SubCommand::with_name("help").alias("h").about("help"))
-        .subcommand(
-            SubCommand::with_name("config")
-                .alias("c")
-                .about("Edit config file"),
-        )
-        .subcommand(
-            SubCommand::with_name("delete")
-                .alias("d")
-                .about("Delete memos")
-                .arg(Arg::with_name("pattern").help("Pattern search"))
-                .arg(
-                    Arg::with_name("pick")
-                        .help("Pick and delete")
-                        .short("p")
-                        .long("pick"),
-                ),
-        )
-        .subcommand(
-            SubCommand::with_name("edit")
-                .alias("e")
-                .about("Edit memo")
-                .arg(Arg::with_name("title").help("edit file title")),
-        )
-        .subcommand(
-            SubCommand::with_name("grep")
-                .alias("g")
-                .about("Grep memos")
-                .arg(
-                    Arg::with_name("argument")
-                        .help("Grep command argument")
-                        .required(true),
-                ),
-        )
-        .subcommand(
-            SubCommand::with_name("list")
-                .alias("l")
-                .about("Show memos list")
-                .arg(Arg::with_name("pattern").help("Pattern search"))
-                .arg(
-                    Arg::with_name("short-view")
-                        .help("Shallow the directory structure")
-                        .short("s")
-                        .long("short-view"),
-                ),
-        )
-        .subcommand(
-            SubCommand::with_name("new")
-                .alias("n")
-                .about("Create new memo")
-                .arg(
-                    Arg::with_name("template")
-                        .help("Create based on template file")
-                        .short("t")
-                        .long("template"),
-                )
-                .arg(Arg::with_name("title").help("create file title")),
-        )
-        .subcommand(
-            SubCommand::with_name("quick")
-                .alias("q")
-                .about("Fast memo not to forget idea")
-                .arg(Arg::with_name("your idea").help("Input your idea")),
-        )
+        .subcommand(config::make_subcommand())
+        .subcommand(delete::make_subcommand())
+        .subcommand(edit::make_subcommand())
+        .subcommand(grep::make_subcommand())
+        .subcommand(list::make_subcommand())
+        .subcommand(new::make_subcommand())
 }
 
 fn run_editor(editor: &str, filepath: &str) {

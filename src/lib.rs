@@ -10,8 +10,8 @@ extern crate clap;
 extern crate serde_derive;
 
 use crate::commands::{
-    build_app, cmd_config::cmd_config, cmd_delete::cmd_delete, cmd_edit::cmd_edit,
-    cmd_grep::cmd_grep, cmd_list::cmd_list, cmd_new::cmd_new, cmd_quick::cmd_quick,
+    build_app, config::cmd_config, delete::cmd_delete, edit::cmd_edit, grep::cmd_grep,
+    list::cmd_list, new::cmd_new,
 };
 
 use crate::config::Config;
@@ -42,8 +42,6 @@ pub fn run() {
         ("list", Some(matches)) => cmd_list(matches, &config),
 
         ("new", Some(matches)) => cmd_new(matches, &config),
-
-        ("quick", Some(matches)) => cmd_quick(matches, &config),
 
         _ => app.print_help().expect("faild print help"),
     };

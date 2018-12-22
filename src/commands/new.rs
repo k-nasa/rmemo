@@ -1,8 +1,9 @@
 use super::run_editor;
-use clap::ArgMatches;
-use colored::*;
 use crate::config::Config;
 use crate::utils;
+use clap::ArgMatches;
+use clap::{App, Arg, SubCommand};
+use colored::*;
 use std::fs::{copy, create_dir_all};
 use std::io::Write;
 use std::string::*;
@@ -52,4 +53,17 @@ pub fn cmd_new(matches: &ArgMatches, config: &Config) {
     }
 
     run_editor(editor, &filepath);
+}
+
+pub fn make_subcommand() -> App<'static, 'static> {
+    SubCommand::with_name("new")
+        .alias("n")
+        .about("Create new memo")
+        .arg(
+            Arg::with_name("template")
+                .help("Create based on template file")
+                .short("t")
+                .long("template"),
+        )
+        .arg(Arg::with_name("title").help("create file title"))
 }
