@@ -43,8 +43,6 @@ pub fn run() {
 
         ("new", Some(matches)) => cmd_new(matches, &config),
 
-        ("quick", Some(matches)) => cmd_quick(matches, &config),
-
         _ => app.print_help().expect("faild print help"),
     };
 }
