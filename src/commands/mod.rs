@@ -9,7 +9,6 @@ pub mod cmd_edit;
 pub mod cmd_grep;
 pub mod cmd_list;
 pub mod cmd_new;
-pub mod cmd_quick;
 
 pub fn build_app() -> App<'static, 'static> {
     App::new(crate_name!())
