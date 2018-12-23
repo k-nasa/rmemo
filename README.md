@@ -40,7 +40,6 @@ SUBCOMMANDS:
     grep      grep memos
     list      show memos list
     new       create new memo
-    quick     Fast memo not to forget idea
 ```
 
 ## Usage example
@@ -63,11 +62,6 @@ hoge
 2018-10-08hoge.md
 Will delete those entry. Are you sure?
 Are you sure?(y/n) :
-```
-If you want to write down ideas right now you can use quick command
-
-```
-$rmemo quick idea
 ```
 
 ## Configuration
