@@ -18,7 +18,6 @@ pub fn make_subcommand() -> App<'static, 'static> {
     SubCommand::with_name("list")
         .alias("l")
         .about("Show memos list")
-        .arg(Arg::with_name("pattern").help("Pattern search"))
         .arg(
             Arg::with_name("short-view")
                 .help("Shallow the directory structure")
