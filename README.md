@@ -7,14 +7,7 @@ rmemo is tool for taking notes fast on the command line
 [![demo](https://asciinema.org/a/F65yWTfdnMyNgiyFhLjGO3mRZ.png)](https://asciinema.org/a/F65yWTfdnMyNgiyFhLjGO3mRZ)
 
 ## Installation
-### On macOS
-In order to publish to the official of homebrew I have to collect 50 stars.(Give me star)
-```
-brew tap k-nasa/homebrew-rmemo
-brew install rmemo
-```
 
-### From source
 ```
 cargo install rmemo
 ```
