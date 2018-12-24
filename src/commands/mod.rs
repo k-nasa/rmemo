@@ -1,4 +1,10 @@
+use crate::commands::{
+    config::cmd_config, delete::cmd_delete, edit::cmd_edit, grep::cmd_grep, list::cmd_list,
+    new::cmd_new,
+};
+use crate::config::Config;
 use clap::{App, AppSettings};
+use std::fs::create_dir_all;
 use std::process::{Command, Stdio};
 use std::str::from_utf8;
 use std::string::*;
@@ -10,7 +16,7 @@ pub mod grep;
 pub mod list;
 pub mod new;
 
-pub fn build_app() -> App<'static, 'static> {
+fn build_app() -> App<'static, 'static> {
     App::new(crate_name!())
         .version(crate_version!())
         .author(crate_authors!())
@@ -23,6 +29,36 @@ pub fn build_app() -> App<'static, 'static> {
         .subcommand(grep::make_subcommand())
         .subcommand(list::make_subcommand())
         .subcommand(new::make_subcommand())
+}
+
+pub fn run() {
+    let mut app = build_app();
+    let config = match Config::load_config() {
+        Ok(config) => config,
+        Err(e) => {
+            println!("{}", e);
+            return;
+        }
+    };
+
+    let memo_dir = config.memos_dir();
+    create_dir_all(memo_dir).expect("faild create memos_dir");
+
+    match build_app().get_matches().subcommand() {
+        ("config", Some(_)) => cmd_config(&config),
+
+        ("delete", Some(matches)) => cmd_delete(matches, &config),
+
+        ("edit", Some(matches)) => cmd_edit(matches, &config),
+
+        ("grep", Some(matches)) => cmd_grep(matches, &config),
+
+        ("list", Some(matches)) => cmd_list(matches, &config),
+
+        ("new", Some(matches)) => cmd_new(matches, &config),
+
+        _ => app.print_help().expect("faild print help"),
+    };
 }
 
 fn run_editor(editor: &str, filepath: &str) {
