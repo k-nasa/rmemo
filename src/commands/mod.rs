@@ -1,6 +1,6 @@
 use crate::commands::{
     config::cmd_config, delete::cmd_delete, edit::cmd_edit, grep::cmd_grep, list::cmd_list,
-    new::cmd_new,
+    new::cmd_new, serve::cmd_serve,
 };
 use crate::config::Config;
 use clap::{App, AppSettings};
@@ -15,6 +15,7 @@ pub mod edit;
 pub mod grep;
 pub mod list;
 pub mod new;
+pub mod serve;
 
 fn build_app() -> App<'static, 'static> {
     App::new(crate_name!())
@@ -29,6 +30,7 @@ fn build_app() -> App<'static, 'static> {
         .subcommand(grep::make_subcommand())
         .subcommand(list::make_subcommand())
         .subcommand(new::make_subcommand())
+        .subcommand(serve::make_subcommand())
 }
 
 pub fn run() {
@@ -56,6 +58,8 @@ pub fn run() {
         ("list", Some(matches)) => cmd_list(matches, &config),
 
         ("new", Some(matches)) => cmd_new(matches, &config),
+
+        ("serve", Some(_)) => cmd_serve(&config),
 
         _ => app.print_help().expect("faild print help"),
     };
