@@ -20,7 +20,6 @@ pub mod serve;
 fn build_app() -> App<'static, 'static> {
     App::new(crate_name!())
         .version(crate_version!())
-        .author(crate_authors!())
         .about(crate_description!())
         .setting(AppSettings::DeriveDisplayOrder)
         .setting(AppSettings::ColoredHelp)
