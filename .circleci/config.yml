@@ -16,18 +16,18 @@ jobs:
             rustfmt --version
             cargo fmt
       - run:
-          name: Build
-          command: |
-            rustc --version
-            cargo --version
-            cargo build
-      - run:
           name: Run Clippy
           command: |
              rustup default nightly
              rustup component add clippy --toolchain nightly
              cargo clippy --version
              cargo clippy --all-targets --all-features -- -D warnings
+      - run:
+          name: Build
+          command: |
+            rustc --version
+            cargo --version
+            cargo build
       - run:
           name: Run Test
           command: cargo test
