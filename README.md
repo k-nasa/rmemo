@@ -1,4 +1,4 @@
-[![Build Status](https://travis-ci.org/k-nasa/rmemo.svg?branch=master)](https://travis-ci.org/k-nasa/rmemo)
+[![CircleCI](https://circleci.com/gh/k-nasa/rmemo.svg?style=svg)](https://circleci.com/gh/k-nasa/rmemo)
 [![crate-name at crates.io](https://img.shields.io/crates/v/rmemo.svg)](https://crates.io/crates/rmemo)
 
 # rmemo
