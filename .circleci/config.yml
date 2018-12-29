@@ -1,37 +1,37 @@
 version: 2
 
-  jobs:
-   build:
-     docker:
-       - image: rustlang/rust:nightly
+jobs:
+  build:
+   docker:
+     - image: rustlang/rust:nightly
 
-      steps:
-       - checkout
-       - restore_cache:
+    steps:
+     - checkout
+     - restore_cache:
+       key: cache
+     - run:
+       name: Check code format
+       command: |
+         rustup component add rustfmt-preview
+         rustfmt --version
+         cargo fmt
+     - run:
+       name: Run clippy
+       command: |
+         rustup component add clippy-preview
+         cargo clippy --version
+         cargo clippy --all-targets --all-features -- -D warnings
+     - run:
+       name: Build
+       command: |
+         rustc --version
+         cargo --version
+         cargo build
+     - run:
+         name: Run Test
+         command: cargo test
+     - save_cache:
          key: cache
-       - run:
-         name: Check code format
-         command: |
-           rustup component add rustfmt-preview
-           rustfmt --version
-           cargo fmt
-       - run:
-         name: Run clippy
-         command: |
-           rustup component add clippy-preview
-           cargo clippy --version
-           cargo clippy --all-targets --all-features -- -D warnings
-       - run:
-         name: Build
-         command: |
-           rustc --version
-           cargo --version
-           cargo build
-       - run:
-           name: Run Test
-           command: cargo test
-       - save_cache:
-           key: cache
-           paths:
-             - "~/.cargo"
-             - "./target"
+         paths:
+           - "~/.cargo"
+           - "./target"
