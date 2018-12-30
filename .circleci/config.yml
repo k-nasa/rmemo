@@ -55,7 +55,9 @@ jobs:
           key: cache
       - run:
           name: Cargo release
-          command: cargo publish
+          command: |
+            cargo login $crate_io
+            cargo publish
 
 workflows:
   version: 2
