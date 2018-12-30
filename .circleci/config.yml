@@ -68,7 +68,7 @@ workflows:
           filters:
             tags:
               only: /.*/
-      - lint_and_format
+      - lint_and_format:
           filters:
             tags:
               only: /.*/
