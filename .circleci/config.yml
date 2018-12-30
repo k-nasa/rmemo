@@ -58,7 +58,7 @@ jobs:
           command:
       - run:
           name: Cargo release
-          command: cargo release
+          command: cargo publish
 
 workflows:
   version: 2
