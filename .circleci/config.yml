@@ -54,9 +54,6 @@ jobs:
       - restore_cache:
           key: cache
       - run:
-          name: GitHub release
-          command:
-      - run:
           name: Cargo release
           command: cargo publish
 
