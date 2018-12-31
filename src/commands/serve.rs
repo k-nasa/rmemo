@@ -3,6 +3,7 @@ use crate::dir_tree::DirTree;
 use clap::{App, SubCommand};
 use failure::Error;
 use mdbook::MDBook;
+use rocket_contrib::serve::StaticFiles;
 use std::fs::*;
 use std::io::Write;
 use std::path::PathBuf;
@@ -26,6 +27,10 @@ pub fn cmd_serve(config: &Config) {
 
     let book = MDBook::load(book_dir).unwrap();
     book.build().unwrap();
+
+    rocket::ignite()
+        .mount("/", StaticFiles::from("/Users/asan/.config/rmemo/book"))
+        .launch();
 }
 
 fn make_book_toml(
