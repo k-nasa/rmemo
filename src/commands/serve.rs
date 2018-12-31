@@ -68,7 +68,7 @@ fn make_summary_md(memo_dir: &str) -> Result<(), Error> {
     let mut summary_links = Vec::new();
     for file in files {
         // SUMMARY.md is not needed for preview
-        if file.name == "SUMMARY.md".to_string() {
+        if file.name == "SUMMARY.md" {
             continue;
         }
 
