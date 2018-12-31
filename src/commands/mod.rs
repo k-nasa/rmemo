@@ -60,7 +60,7 @@ pub fn run() {
 
         ("serve", Some(_)) => cmd_serve(&config),
 
-        _ => app.print_help().expect("faild print help"),
+        _ => app.print_help().expect("Failed to print help"),
     };
 }
 
