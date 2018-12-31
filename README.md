@@ -67,8 +67,5 @@ template_file_path = ""                        # Set the template you want to us
 enter_time_in_filename = true                  # Set it to false if timestamp is not required for file name
 ```
 
-## License
-MIT
-
 ## Author
 nasa
