@@ -62,6 +62,7 @@ fn make_summary_md(memo_dir: &str) -> Result<(), Error> {
 
     let mut summary_links = Vec::new();
     for file in files {
+        // SUMMARY.md is not needed for preview
         if file.name == "SUMMARY.md".to_string() {
             continue;
         }
@@ -71,7 +72,6 @@ fn make_summary_md(memo_dir: &str) -> Result<(), Error> {
     }
 
     let summary_links = summary_links.into_iter().collect::<String>();
-
     File::create(summary)?.write_all(summary_links.as_bytes())?;
 
     Ok(())
