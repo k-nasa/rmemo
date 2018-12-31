@@ -2,8 +2,7 @@ use crate::config::Config;
 use crate::file_or_dir::{
     file_names, file_or_dirs_print, file_or_dirs_remove, FileOrDir, FileOrDirs,
 };
-use clap::ArgMatches;
-use clap::{App, Arg, SubCommand};
+use clap::{App, Arg, ArgMatches, SubCommand};
 use colored::*;
 use dialoguer::Select;
 use std::{io::*, string::*};

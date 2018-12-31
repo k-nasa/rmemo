@@ -1,4 +1,4 @@
-use rmemo::run;
+use rmemo::commands::run;
 
 fn main() {
     run();

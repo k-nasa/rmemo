@@ -14,8 +14,8 @@ pub struct DirTree {
 
 #[derive(Debug, Eq)]
 pub struct File {
-    name: String,
-    path: String,
+    pub name: String,
+    pub path: String,
     tree_branches: Vec<TreeBranch>,
     is_last: bool,
 }
@@ -144,6 +144,20 @@ impl DirTree {
             }
             println!(" {}", file.name);
         }
+    }
+
+    pub fn files_list(self) -> Vec<File> {
+        let mut files = Vec::new();
+
+        for dir_tree in self.dir_tree {
+            files.append(&mut dir_tree.files_list());
+        }
+
+        for file in self.files {
+            files.push(file);
+        }
+
+        files
     }
 }
 
