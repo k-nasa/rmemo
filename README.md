@@ -18,21 +18,18 @@ USAGE:
     rmemo [SUBCOMMAND]
 
 FLAGS:
-    -h, --help
-            Prints help information
-
-    -V, --version
-            Prints version information
-
+    -h, --help       Prints help information
+    -V, --version    Prints version information
 
 SUBCOMMANDS:
-    help      help
-    config    edit config file
-    delete    delete memos
-    edit      edit memo
-    grep      grep memos
-    list      show memos list
-    new       create new memo
+    config    Edit config file
+    delete    Delete memos
+    edit      Edit memo
+    grep      Grep memos
+    list      Show memos list
+    new       Create new memo
+    serve     start http server
+    help      Prints this message or the help of the given subcommand(s)
 ```
 
 ## Usage example
