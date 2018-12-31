@@ -29,7 +29,7 @@ pub fn cmd_serve(config: &Config) {
     book.build().unwrap();
 
     rocket::ignite()
-        .mount("/", StaticFiles::from("/Users/asan/.config/rmemo/book"))
+        .mount("/", StaticFiles::from(book.build_dir_for("html")))
         .launch();
 }
 
