@@ -91,5 +91,7 @@ workflows:
           requires:
             - deploy-approval
           filters:
+            branches:
+              only: master
             tags:
               only: /.*/
