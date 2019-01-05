@@ -15,7 +15,8 @@ pub type FileOrDirs = Vec<FileOrDir>;
 impl FileOrDir {
     pub fn print(&self) {
         if self.is_dir {
-            println!("{}{}", self.name.cyan(), "/".cyan());
+            let dir = self.name.clone() + "/";
+            println!("{}", dir.cyan());
         } else {
             println!("{}", self.name);
         }
@@ -60,7 +61,7 @@ pub fn file_or_dirs_print(file_or_dirs: &[FileOrDir]) {
 
 pub fn file_or_dirs_remove(file_or_dirs: &[FileOrDir]) {
     for file in file_or_dirs {
-        file.remove().expect("Faild remove file");
+        file.remove().expect("Failed remove file");
     }
 }
 
