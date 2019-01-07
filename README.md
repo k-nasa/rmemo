@@ -63,6 +63,3 @@ grep_command = "grep"                          # Set your favorite grep
 template_file_path = ""                        # Set the template you want to use
 enter_time_in_filename = true                  # Set it to false if timestamp is not required for file name
 ```
-
-## Author
-nasa
