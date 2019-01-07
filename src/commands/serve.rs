@@ -1,6 +1,6 @@
 use crate::config::Config;
 use crate::dir_tree::DirTree;
-use clap::{App, SubCommand};
+use crate::utils::*;
 use failure::Error;
 use mdbook::MDBook;
 use rocket_contrib::serve::StaticFiles;
@@ -9,7 +9,7 @@ use std::io::Write;
 use std::path::PathBuf;
 use std::path::*;
 
-pub fn make_subcommand() -> App<'static, 'static> {
+pub fn make_subcommand() -> App {
     SubCommand::with_name("serve")
         .alias("s")
         .about("start http server")

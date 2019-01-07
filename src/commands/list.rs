@@ -1,7 +1,6 @@
 use crate::config::Config;
 use crate::dir_tree::*;
-use clap::ArgMatches;
-use clap::{App, Arg, SubCommand};
+use crate::utils::*;
 
 pub fn cmd_list(matches: &ArgMatches, config: &Config) {
     let memo_dir = config.memos_dir();
@@ -14,7 +13,7 @@ pub fn cmd_list(matches: &ArgMatches, config: &Config) {
     }
 }
 
-pub fn make_subcommand() -> App<'static, 'static> {
+pub fn make_subcommand() -> App {
     SubCommand::with_name("list")
         .alias("l")
         .about("Show memos list")
