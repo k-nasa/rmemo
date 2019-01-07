@@ -1,6 +1,9 @@
 use std::io::*;
 use std::str::FromStr;
 
+pub use clap::{AppSettings, Arg, ArgMatches, SubCommand};
+pub type App = clap::App<'static, 'static>;
+
 pub fn read<T: FromStr>() -> T {
     let mut s = String::new();
     stdin().read_line(&mut s).ok();

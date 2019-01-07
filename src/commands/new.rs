@@ -1,8 +1,6 @@
-use super::run_editor;
+use crate::commands::run_editor;
 use crate::config::Config;
-use crate::utils;
-use clap::ArgMatches;
-use clap::{App, Arg, SubCommand};
+use crate::utils::*;
 use colored::*;
 use std::fs::{copy, create_dir_all};
 use std::io::Write;
@@ -14,7 +12,7 @@ pub fn cmd_new(matches: &ArgMatches, config: &Config) {
         None => {
             print!("Input title :");
             std::io::stdout().flush().expect("print! is faild");
-            utils::read()
+            crate::utils::read()
         }
     };
 
@@ -55,7 +53,7 @@ pub fn cmd_new(matches: &ArgMatches, config: &Config) {
     run_editor(editor, &filepath);
 }
 
-pub fn make_subcommand() -> App<'static, 'static> {
+pub fn make_subcommand() -> App {
     SubCommand::with_name("new")
         .alias("n")
         .about("Create new memo")
