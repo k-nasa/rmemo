@@ -1,6 +1,6 @@
 [package]
 name = "rmemo"
-version = "0.2.4"
+version = "0.2.5"
 authors = ["k-nasa <htilcs1115@gmail.com>"]
 keywords = ["cli"]
 repository = "https://github.com/k-nasa/memo_command"
