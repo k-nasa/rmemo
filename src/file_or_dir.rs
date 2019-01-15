@@ -1,7 +1,6 @@
 use colored::*;
 use std::cmp::Ordering;
 use std::fs::{read_dir, remove_dir_all, remove_file};
-use std::io::Result;
 
 #[derive(Debug, Clone, Eq)]
 pub struct FileOrDir {
@@ -22,7 +21,7 @@ impl FileOrDir {
         }
     }
 
-    pub fn remove(&self) -> Result<()> {
+    pub fn remove(&self) -> Result<(), impl std::error::Error> {
         if self.is_dir {
             remove_dir_all(&self.path)
         } else {
