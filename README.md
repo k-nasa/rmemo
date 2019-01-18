@@ -8,8 +8,15 @@ rmemo is tool for taking notes fast on the command line
 
 ## Installation
 
+using cargo
 ```
 cargo install rmemo
+```
+
+using homebrew
+```
+brew tap k-nasa/homebrew-rmemo
+brew install rmemo
 ```
 
 ## Usage
