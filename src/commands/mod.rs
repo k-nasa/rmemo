@@ -37,8 +37,8 @@ pub fn run() {
     let config = match Config::load_config() {
         Ok(config) => config,
         Err(e) => {
-            println!("{}", e);
-            return;
+            eprintln!("{}", e);
+            std::process::exit(1)
         }
     };
 
