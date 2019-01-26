@@ -5,7 +5,7 @@ use std::path::Path;
 
 pub fn cmd_config(config: &Config) {
     let dir = match dirs::home_dir() {
-        Some(dir) => Path::new(&dir.to_str().unwrap().to_string()).join(".config/rmemo/"),
+        Some(dir) => Path::new(&dir.to_str().unwrap()).join(".config/rmemo/"),
         None => panic!("faild fetch home_dir name"),
     };
 

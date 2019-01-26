@@ -5,7 +5,7 @@ use crate::file_or_dir::{
 use crate::utils::*;
 use colored::*;
 use dialoguer::Select;
-use std::{io::*, string::*};
+use std::io::*;
 use termion::{
     event::{Event, Key},
     input::TermRead,
@@ -25,10 +25,7 @@ macro_rules! confirmation {
 }
 
 pub fn cmd_delete(matches: &ArgMatches, config: &Config) {
-    let pattern = match matches.value_of("pattern") {
-        Some(pattern) => pattern.to_string(),
-        None => String::new(),
-    };
+    let pattern = matches.value_of("pattern").unwrap_or_default();
 
     let memo_dir = config.memos_dir();
     let files: FileOrDirs = FileOrDir::filter_files(&memo_dir, &pattern);

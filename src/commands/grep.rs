@@ -5,13 +5,7 @@ use colored::*;
 use std::process::Command;
 
 pub fn cmd_grep(matches: &ArgMatches, config: &Config) {
-    let argument = match matches.value_of("argument") {
-        Some(argument) => argument,
-        None => {
-            println!("The following required arguments were not provided");
-            return;
-        }
-    };
+    let argument = matches.value_of("argument").unwrap();
 
     let memo_dir = config.memos_dir();
     let files: FileOrDirs = FileOrDir::files(&memo_dir);

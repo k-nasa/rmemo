@@ -3,17 +3,14 @@ use crate::config::Config;
 use crate::utils::*;
 
 pub fn cmd_edit(matches: &ArgMatches, config: &Config) {
-    let mut title = match matches.value_of("title") {
-        Some(title) => title.to_string(),
-        None => String::new(),
-    };
-
     let dir = config.memos_dir();
     let selector = config.selector();
 
-    if title.is_empty() {
-        title = run_selector(&selector, dir);
-    }
+    let title = if let Some(title) = matches.value_of("title") {
+        title.to_string()
+    } else {
+        run_selector(&selector, dir)
+    };
 
     if title.is_empty() {
         println!("File is not selected!");
