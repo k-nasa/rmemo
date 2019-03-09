@@ -22,7 +22,6 @@ fn build_app() -> App<'static, 'static> {
         .version(crate_version!())
         .about(crate_description!())
         .setting(AppSettings::DeriveDisplayOrder)
-        .setting(AppSettings::ColoredHelp)
         .subcommand(config::make_subcommand())
         .subcommand(delete::make_subcommand())
         .subcommand(edit::make_subcommand())
