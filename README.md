@@ -63,7 +63,7 @@ Are you sure?(y/n) :
 
 ## Configuration
 ```toml
-memos_dir = "/Users/asan/.config/rmemo/memos"  # Directory where note is stored
+memos_dir = "/Users//.config/rmemo/memos"  # Directory where note is stored
 editor = "nvim"                                # The editor you want to use. I recommend nvim for no particular reason
 selector = "fzf"                               # Selector you want to use. Please choose your favorite one
 grep_command = "grep"                          # Set your favorite grep
