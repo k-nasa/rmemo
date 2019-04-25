@@ -44,7 +44,7 @@ pub fn cmd_delete(matches: &ArgMatches, config: &Config) {
 
 fn pick_file_delete(files: &[FileOrDir]) {
     let selections = file_names(files);
-    let selections: Vec<&str> = selections.iter().map(|name| name.as_str()).collect();
+    let selections: Vec<&str> = selections.iter().map(std::string::String::as_str).collect();
     let selections = selections.as_slice();
 
     let selection = Select::new()
