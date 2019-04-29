@@ -8,7 +8,7 @@ use std::string::*;
 
 pub fn cmd_new(matches: &ArgMatches, config: &Config) {
     let input_filepath = match matches.value_of("title") {
-        Some(title) => title.to_string(),
+        Some(title) => inflector::cases::snakecase::to_snake_case(&title.to_string()),
         None => {
             print!("Input title :");
             std::io::stdout().flush().expect("print! is faild");
