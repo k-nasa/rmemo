@@ -12,7 +12,8 @@ pub fn cmd_new(matches: &ArgMatches, config: &Config) {
         None => {
             print!("Input title :");
             std::io::stdout().flush().expect("print! is faild");
-            crate::utils::read()
+            let input: String = crate::utils::read();
+            inflector::cases::snakecase::to_snake_case(&input)
         }
     };
 
