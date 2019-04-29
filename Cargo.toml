@@ -1,6 +1,6 @@
 [package]
 name = "rmemo"
-version = "0.2.6"
+version = "0.2.7"
 authors = ["k-nasa <htilcs1115@gmail.com>"]
 keywords = ["cli"]
 repository = "https://github.com/k-nasa/memo_command"
@@ -23,3 +23,4 @@ failure = "0.1.5"
 mdbook = "0.2.3"
 rocket = "0.4.0"
 rocket_contrib = "0.4.0"
+Inflector = "0.11.4"

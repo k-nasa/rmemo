@@ -2,17 +2,18 @@ use crate::commands::run_editor;
 use crate::config::Config;
 use crate::utils::*;
 use colored::*;
+use inflector::cases::snakecase::to_snake_case;
 use std::fs::{copy, create_dir_all};
 use std::io::Write;
 use std::string::*;
 
 pub fn cmd_new(matches: &ArgMatches, config: &Config) {
     let input_filepath = match matches.value_of("title") {
-        Some(title) => title.to_string(),
+        Some(title) => to_snake_case(&title.to_string()),
         None => {
             print!("Input title :");
             std::io::stdout().flush().expect("print! is faild");
-            crate::utils::read()
+            to_snake_case(&crate::utils::read::<String>())
         }
     };
 
