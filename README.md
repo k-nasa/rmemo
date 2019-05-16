@@ -2,6 +2,7 @@
 [![crate-name at crates.io](https://img.shields.io/crates/v/rmemo.svg)](https://crates.io/crates/rmemo)
 
 # rmemo
+
 rmemo is tool for taking notes fast on the command line
 
 [![demo](https://asciinema.org/a/F65yWTfdnMyNgiyFhLjGO3mRZ.png)](https://asciinema.org/a/F65yWTfdnMyNgiyFhLjGO3mRZ)
@@ -9,17 +10,20 @@ rmemo is tool for taking notes fast on the command line
 ## Installation
 
 using cargo
+
 ```
 cargo install rmemo
 ```
 
 using homebrew
+
 ```
 brew tap k-nasa/homebrew-rmemo
 brew install rmemo
 ```
 
 ## Usage
+
 ```
 USAGE:
     rmemo [SUBCOMMAND]
@@ -40,17 +44,23 @@ SUBCOMMANDS:
 ```
 
 ## Usage example
+
 Create new note
+
 ```
 $rmemo new
 Title:
 ```
+
 If you have set up a template, create a note based on it
+
 ```
 $rmemo new -t
 Title:
 ```
+
 Deletes the note of the file name matching the argument pattern
+
 ```
 rmemo delete hoge
 hoge
@@ -62,9 +72,10 @@ Are you sure?(y/n) :
 ```
 
 ## Configuration
+
 ```toml
-memos_dir = "/Users//.config/rmemo/memos"  # Directory where note is stored
-editor = "nvim"                                # The editor you want to use. I recommend nvim for no particular reason
+memos_dir = "~/.config/rmemo/memos"            # Directory where note is stored
+editor = "vim"                                 # The editor you want to use. I recommend vim for no particular reason
 selector = "fzf"                               # Selector you want to use. Please choose your favorite one
 grep_command = "grep"                          # Set your favorite grep
 template_file_path = ""                        # Set the template you want to use
