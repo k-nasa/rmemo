@@ -10,7 +10,7 @@ description = "Tools for taking notes fast on the CLI"
 edition = "2018"
 
 [dependencies]
-dirs = "1.0.5"
+dirs = "2.0.0"
 toml = "0.5.1"
 chrono = "0.4"
 serde = "1.0"
