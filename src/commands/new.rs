@@ -44,7 +44,7 @@ pub fn cmd_new(matches: &ArgMatches, config: &Config) {
         _ => format!("{}.md", title),
     };
 
-    let filepath = format!("{}/{}", dir, title);
+    let filepath = format!("{}/{}", dir, to_snake_case(&title));
     create_dir_all(dir).expect("faild create directory");
 
     if matches.is_present("template") && !config.template_file_path().is_empty() {
