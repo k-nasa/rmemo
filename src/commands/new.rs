@@ -9,11 +9,11 @@ use std::string::*;
 
 pub fn cmd_new(matches: &ArgMatches, config: &Config) {
     let input_filepath = match matches.value_of("title") {
-        Some(title) => to_snake_case(&title.to_string()),
+        Some(title) => title.to_string(),
         None => {
             print!("Input title :");
             std::io::stdout().flush().expect("print! is faild");
-            to_snake_case(&crate::utils::read::<String>())
+            crate::utils::read::<String>()
         }
     };
 
@@ -44,7 +44,7 @@ pub fn cmd_new(matches: &ArgMatches, config: &Config) {
         _ => format!("{}.md", title),
     };
 
-    let filepath = format!("{}/{}", dir, title);
+    let filepath = format!("{}/{}", dir, to_snake_case(&title));
     create_dir_all(dir).expect("faild create directory");
 
     if matches.is_present("template") && !config.template_file_path().is_empty() {
