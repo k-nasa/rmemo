@@ -39,12 +39,12 @@ pub fn cmd_new(matches: &ArgMatches, config: &Config) {
     let title = match config.enter_time_in_filename {
         Some(true) => {
             let now = chrono::Local::now().format("%Y-%m-%d").to_string();
-            format!("{}{}.md", now, title)
+            format!("{}{}", now, title)
         }
-        _ => format!("{}.md", title),
+        _ => title,
     };
 
-    let filepath = format!("{}/{}", dir, to_snake_case(&title));
+    let filepath = format!("{}/{}.md", dir, to_snake_case(&title));
     create_dir_all(dir).expect("faild create directory");
 
     if matches.is_present("template") && !config.template_file_path().is_empty() {
