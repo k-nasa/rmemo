@@ -1,5 +1,6 @@
 [![CircleCI](https://circleci.com/gh/k-nasa/rmemo.svg?style=svg)](https://circleci.com/gh/k-nasa/rmemo)
 [![crate-name at crates.io](https://img.shields.io/crates/v/rmemo.svg)](https://crates.io/crates/rmemo)
+[![downloads](https://img.shields.io/crates/d/rmemo.svg?style=flat-square)](https://crates.io/crates/rmemo)
 
 # rmemo
 
