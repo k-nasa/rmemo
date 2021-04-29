@@ -1,0 +1,26 @@
+version: 2
+updates:
+- package-ecosystem: cargo
+  directory: "/"
+  schedule:
+    interval: daily
+    time: "20:00"
+  open-pull-requests-limit: 10
+  ignore:
+  - dependency-name: serde_derive
+    versions:
+    - 1.0.123
+    - 1.0.124
+  - dependency-name: serde
+    versions:
+    - 1.0.123
+    - 1.0.124
+  - dependency-name: mdbook
+    versions:
+    - 0.4.6
+  - dependency-name: dirs
+    versions:
+    - 3.0.1
+  - dependency-name: dialoguer
+    versions:
+    - 0.6.2
